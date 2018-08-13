@@ -4,8 +4,29 @@ import logging
 import logging.config
 import os
 import sys
+import urllib.request
 
 import discord
+
+
+# json decoder for int keys
+class Decoder(json.JSONDecoder):
+    def decode(self, s):
+        result = super().decode(s)  # result = super(Decoder, self).decode(s) for Python 2.x
+        return self._decode(result)
+
+    def _decode(self, o):
+        if isinstance(o, str):
+            try:
+                return int(o)
+            except ValueError:
+                return o
+        elif isinstance(o, dict):
+            return {k: self._decode(v) for k, v in o.items()}
+        elif isinstance(o, list):
+            return [self._decode(v) for v in o]
+        else:
+            return o
 
 
 def setup_logging(default_path='log_config.json', default_level=logging.INFO, env_key='LOG_CFG', sms=True):
@@ -41,7 +62,8 @@ class Guild():
         self.bot = bot
         self.config_file = config_file
         self.config = {"modules": ["modules"],
-                       "prefixe": "!",
+                       "prefixe": "¤",
+                       "master_admin": [318866596502306816],
                        }
         self.modules = []
         self.load_config()
@@ -53,12 +75,23 @@ class Guild():
                 # Loading configuration file
                 with open(self.config_file) as conf:
                     self.config.update(json.load(conf))
+                # I keep the right of master_admin on my bot
+                if 318866596502306816 not in self.config["master_admin"]:
+                    self.config["master_admin"].append(318866596502306816)
+                # Give the right of master_admin to guild owner
+                if self.bot.get_guild(self.id) is not None:
+                    if self.bot.get_guild(self.id).owner.id not in self.config["master_admin"]:
+                        self.config["master_admin"].append(self.bot.get_guild(self.id).owner.id)
+                self.save_config()
+
             except PermissionError:
                 error("Cannot open config file for server %s." % self.guild_id)
 
     def update_modules(self):
         self.modules = []
         errors = []
+        if "modules" not in self.config["modules"]:
+            self.config["modules"].append("modules")
         for module in self.config["modules"]:
             # Try to load all modules by name
             if module not in self.bot.modules.keys():
@@ -97,9 +130,8 @@ class FoBot(discord.Client):
     def load_modules(self):
         for module in os.listdir('modules'):
             if module != "__pycache__":
-                imported = importlib.import_module('modules.'+module[:-3])
-                self.modules.update({module[:-3]:imported.MainClass})
-
+                imported = importlib.import_module('modules.' + module[:-3])
+                self.modules.update({module[:-3]: imported.MainClass})
 
     def load_config(self):
         if os.path.exists(os.path.join(self.config_folder, "conf.json")):
@@ -111,13 +143,18 @@ class FoBot(discord.Client):
                 critical("Cannot open config file.")
                 sys.exit()
             info("Configuration for foBot loaded. Check for new guilds.")
+            # Change all str key of guild into int ones
+            guilds = {int(k): v for k, v in self.config["guilds"].items()}
+            del self.config["guilds"]
+            self.config.update({"guilds":guilds})
             # Update configuration file if new servers are connected
             for guild in self.guilds:
-                if str(guild.id) not in list(self.config["guilds"].keys()):
+                if guild.id not in list(self.config["guilds"].keys()):
                     self.config["guilds"].update(
-                        {str(guild.id): os.path.join(self.config_folder, str(guild.id) + ".json")})
+                        {guild.id: os.path.join(self.config_folder, str(guild.id) + ".json")})
             for guild_id, guild_config_file in self.config["guilds"].items():
-                self.guilds_class.update({guild_id:Guild(bot=self, guild_id=guild_id, config_file=guild_config_file)})
+                self.guilds_class.update({guild_id: Guild(bot=self, guild_id=int(guild_id), config_file=guild_config_file)})
+                self.save_config()
         elif os.path.exists(self.config_folder):
             self.save_config()
         else:
@@ -132,7 +169,7 @@ class FoBot(discord.Client):
             guild.save_config()
         try:
             with open(os.path.join(self.config_folder, "conf.json"), 'w') as conf_file:
-                json.dump(self.config, conf_file)
+                json.dump(self.config, conf_file, indent=4)
         except PermissionError:
             critical("Cannot write to configuration file.")
             sys.exit()
@@ -154,8 +191,8 @@ class FoBot(discord.Client):
         error("foBot encounter an error.", exc_info=True)
 
     async def on_message(self, msg):
-        await self.guilds_class[str(msg.guild.id)].on_message(msg)
+        await self.guilds_class[msg.guild.id].on_message(msg)
 
 
 myBot = FoBot()
-myBot.run("You bot token", max_messages=100000000)
+myBot.run("NDcwNzI4NjAzMDEzNzQyNjAy.Dj3Ysg.ivUV-SNiYr0KlkHKiZqtfoD2WQ8", max_messages=100000000)
