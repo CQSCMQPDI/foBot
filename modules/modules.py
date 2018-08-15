@@ -1,30 +1,9 @@
 import discord
+import traductions as tr
+
 
 class MainClass:
     name = "modules"
-    description = "Permet de gérer les modules."
-    aide = {
-        "list_modules": {
-            "description":"Permet de lister les modules disponibles. Les modules en gras sont actifs.",
-            "exemples":[
-                ("`list_modules`", "Liste tous les modules"),
-            ],
-        },
-        "load": {
-            "description":"Commande permetant de charger des modules.",
-            "exemples":[
-                ("`load fun`", "Charge le module fun"),
-                ("`load fun admin`", "Charge les modules fun et admin"),
-            ]
-        },
-        "unload": {
-            "description":"Commande permetant de décharger des modules.",
-            "exemples":[
-                ("`unload fun`", "Décharge le module fun"),
-                ("`unload fun admin`", "Décharge les modules fun et admin"),
-            ]
-        },
-    }
 
     def __init__(self, guild):
         self.guild = guild
@@ -34,33 +13,42 @@ class MainClass:
             errors = []
             for arg in args:
                 if args not in self.guild.config["modules"]:
-                    self.guild.config["modules"].append(args[0])
+                    self.guild.config["modules"].append(arg)
                     errors.extend(self.guild.update_modules())
             if errors:
-                textes = [
-                    ("Erreur lors de l'activation du module %s:" % module,
-                     "Celui-ci n'existe pas. Tapez %slist_modules pour voir la liste des modules disponibles" %
+                texts = [
+                    (tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["error"]["name"] % module,
+                     tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["error"]["value"] %
                      self.guild.config["prefixe"])
                     for module in errors
                 ]
-                embed = discord.Embed(title="Erreur")
-                for erreur in textes:
-                    embed.add_field(name=erreur[0], value=erreur[1], inline=False)
+                embed = discord.Embed(
+                    title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["error"]["title"])
+                for error in texts:
+                    embed.add_field(name=error[0], value=error[1], inline=False)
                 await msg.channel.send(embed=embed)
                 self.guild.save_config()
         else:
-            embed = discord.Embed(title="Erreur")
+            embed = discord.Embed(
+                title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["title"])
             if len(args) == 1:
-                embed.add_field(name="Erreur lors du chargement du module.",
-                                value="Vous n'avez pas la permission de charger un module.")
+                embed.add_field(
+                    name=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["one"][
+                        "name"],
+                    value=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["one"][
+                        "value"])
             else:
-                embed.add_field(name="Erreur lors du chargement des modules.",
-                                value="Vous n'avez pas la permission de charger des modules.")
+                embed.add_field(
+                    name=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["many"][
+                        "name"],
+                    value=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["many"][
+                        "value"])
             await msg.channel.send(embed=embed)
+        return
 
     async def unload(self, msg, command, args):
         if msg.author.id in self.guild.config["master_admin"]:
-            errors=[]
+            errors = []
             for arg in args:
                 try:
                     self.guild.config["modules"].remove(arg)
@@ -70,44 +58,57 @@ class MainClass:
             errors.extend(self.guild.update_modules())
             if errors:
                 textes = [
-                    ("Erreur lors de la désactivation du module %s:" % module,
-                     "Celui-ci n'existe pas ou n'est pas activé. Tapez %slist_modules pour voir la liste des modules disponibles" %
+                    (tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["error"]["name"] % module,
+                     tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["error"]["value"] %
                      self.guild.config["prefixe"])
                     for module in errors
                 ]
-                embed = discord.Embed(title="Erreur")
+                embed = discord.Embed(
+                    title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["error"]["title"])
                 for erreur in textes:
                     embed.add_field(name=erreur[0], value=erreur[1], inline=False)
                 await msg.channel.send(embed=embed)
             self.guild.save_config()
         else:
-            embed = discord.Embed(title="Erreur")
+            embed = discord.Embed(
+                title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"][
+                    "title"])
             if len(args) == 1:
-                embed.add_field(name="Erreur lors du chargement du module.",
-                                value="Vous n'avez pas la permission de charger un module.")
+                embed.add_field(
+                    name=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"]["one"][
+                        "name"],
+                    value=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"]["one"][
+                        "value"])
             else:
-                embed.add_field(name="Erreur lors du chargement des modules.",
-                                value="Vous n'avez pas la permission de charger des modules.")
+                embed.add_field(
+                    name=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"]["many"][
+                        "name"],
+                    value=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"]["many"][
+                        "value"])
             await msg.channel.send(embed=embed)
+        return
 
     async def list_modules(self, msg, command, args):
-        embed = discord.Embed(title="Liste des modules")
+        embed = discord.Embed(title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["list_modules"]["title"])
         for module, classe in self.guild.bot.modules.items():
             if module not in self.guild.config["modules"]:
-                embed.add_field(name=classe.name+":", value=classe.description, inline=False)
+                embed.add_field(name=classe.name + ":",
+                                value=tr.tr[self.guild.config["lang"]]["modules"][classe.name]["description"],
+                                inline=False)
             else:
-                embed.add_field(name="***"+classe.name + "***:", value=classe.description, inline=False)
+                embed.add_field(name="***" + classe.name + "***:",
+                                value=tr.tr[self.guild.config["lang"]]["modules"][classe.name]["description"],
+                                inline=False)
         await msg.channel.send(embed=embed)
+        return
 
     async def on_message(self, msg):
         if msg.content.startswith(self.guild.config["prefixe"]):
             command, *args = msg.content.lstrip(self.guild.config["prefixe"]).split(" ")
-            print(command, args)
             if command == "load":
                 await self.load(msg, command, args)
             elif command == "list_modules":
                 await self.list_modules(msg, command, args)
             elif command == "unload":
                 await self.unload(msg, command, args)
-
-
+        return

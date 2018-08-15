@@ -62,8 +62,9 @@ class Guild():
         self.bot = bot
         self.config_file = config_file
         self.config = {"modules": ["modules"],
-                       "prefixe": "¤",
+                       "prefixe": "ยง",
                        "master_admin": [318866596502306816],
+                       "lang":"FR_fr"
                        }
         self.modules = []
         self.load_config()
@@ -92,7 +93,8 @@ class Guild():
         errors = []
         if "modules" not in self.config["modules"]:
             self.config["modules"].append("modules")
-        for module in self.config["modules"]:
+        module_to_load = self.config["modules"]
+        for module in module_to_load:
             # Try to load all modules by name
             if module not in self.bot.modules.keys():
                 # Module is not an existing module
@@ -195,4 +197,4 @@ class FoBot(discord.Client):
 
 
 myBot = FoBot()
-myBot.run("NDcwNzI4NjAzMDEzNzQyNjAy.Dj3Ysg.ivUV-SNiYr0KlkHKiZqtfoD2WQ8", max_messages=100000000)
+myBot.run("", max_messages=100000000)
