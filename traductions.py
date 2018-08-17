@@ -1,5 +1,6 @@
 tr = {
     "FR_fr": {
+        "description": "Français",
         "modules": {
             "modules": {
                 "description": "Permet de gérer les modules.",
@@ -7,21 +8,21 @@ tr = {
                     "list_modules": {
                         "description": "Liste tous les modules. Les modules en gras sont activés.",
                         "exemples": [
-                            ("`list_modules`", "Liste tous les modules"),
+                            ("`{prefix}list_modules`", "Liste tous les modules"),
                         ],
                     },
                     "load": {
                         "description": "Permet de charger un ou des modules.",
                         "exemples": [
-                            ("`load fun`", "Charge le module fun"),
-                            ("`load fun admin`", "Charge les modules fun et admin"),
+                            ("`{prefix}load fun`", "Charge le module fun"),
+                            ("`{prefix}load fun admin`", "Charge les modules fun et admin"),
                         ],
                     },
                     "unload": {
                         "description": "Permet de décharger un ou des modules.",
                         "exemples": [
-                            ("`unload fun`", "Décharge le module fun"),
-                            ("`unload fun admin`", "Décharge les modules fun et admin"),
+                            ("`{prefix}unload fun`", "Décharge le module fun"),
+                            ("`{prefix}unload fun admin`", "Décharge les modules fun et admin"),
                         ],
                     },
                 },
@@ -29,110 +30,74 @@ tr = {
                     "title": "Liste des modules",
                 },
                 "load": {
-                    "error": {
-                        "name": "Erreur lors de l'activation du module %s:",
-                        "value": "Celui-ci n'existe pas. Tapez %slist_modules pour voir la liste des modules disponibles.",
-                        "title": "Erreur",
-                    },
-                    "permissionError": {
-                        "title": "Erreur",
-                        "one": {
-                            "name": "Erreur lors du chargement du module.",
-                            "value": "Vous n'avez pas la permission de charger un module.",
-                        },
-                        "many": {
-                            "name": "Erreur lors du chargement des modules.",
-                            "value": "Vous n'avez pas la permission de charger des modules."
-                        }
-                    },
-                    "unload": {
-                        "error": {
-                            "name": "Erreur lors de la désactivation du module %s:",
-                            "value": "Celui-ci n'existe pas ou n'est pas activé. Tapez %slist_modules pour voir la liste des modules disponibles.",
-                            "title": "Erreur",
-                        },
-                        "permissionError": {
-                            "title": "Erreur",
-                            "one": {
-                                "name": "Erreur lors de la désactivation du module.",
-                                "value": "Vous n'avez pas la permission de désactiver  un module.",
-                            },
-                            "many": {
-                                "name": "Erreur lors de la désactivation des modules.",
-                                "value": "Vous n'avez pas la permission de désactiver des modules."
-                            },
-                        },
-                    },
-                },
-            },
-        },
-    },
-    "EN_us": {
-        "modules": {
-            "modules": {
-                "description": "Allow to manage modules.",
-                "aide": {
-                    "list_modules": {
-                        "description": "Lists all modules. Modules in bold are enabled.",
-                        "exemples": [
-                            ("`list_modules`", "Lists all modules"),
-                        ],
-                    },
-                    "load": {
-                        "description": "Load one or more modules.",
-                        "examples": [
-                            ("`load fun`", "Load fun module"),
-                            ("`load fun admin`", "Load fun and admin modules"),
-                        ],
-                    },
-                    "unload": {
-                        "description": "Unload one or more modules.",
-                        "exemples": [
-                            ("`load fun`", "Unload fun module"),
-                            ("`upload fun admin`", "Unload fun and admin modules"),
-                        ],
-                    },
-                },
-                "list_modules": {
-                    "title": "List of modules"
-                },
-                "load": {
-                    "error": {
-                        "name": "Error when activating the %s module:",
-                        "value": "This one doesn't exist. Type %slist_modules to see the list of available modules.",
-                        "title": "Error",
-                    },
-                    "permissionError": {
-                        "title": "Error",
-                        "one": {
-                            "name": "Error when loading the module.",
-                            "value": "You do not have permission to load a module.",
-                        },
-                        "many": {
-                            "name": "Error when loading modules.",
-                            "value": "You do not have permission to load modules.",
-                        },
-                    },
                 },
                 "unload": {
-                    "error": {
-                        "name": "Error when deactivating the %s module:",
-                        "value": "This one doesn't exist or isn't activate. Type %slist_modules to see the list of available modules.",
-                        "title": "Error",
+                },
+            },
+            "config": {
+                "description": "Configuration de foBot, doublez le préfixe pour y accéder.",
+                "aide": {
+                    "lang": {
+                        "description": "Modifier la langue",
+                        "examples": [
+                            ("`{prefix}{prefix}lang FR_fr`", "Change la langue en français"),
+                        ],
                     },
-                    "permissionError": {
-                        "title": "Error",
-                        "one": {
-                            "name": "Error when deactivating the module.",
-                            "value": "You do not have permission to deactivate a module.",
-                        },
-                        "many": {
-                            "name": "Error when deactivate modules.",
-                            "value": "You do not have permission to deactivate modules.",
+                    "list_lang": {
+                        "description": "Liste les langues disponibles",
+                        "examples": [
+                            ("`{prefix}{prefix}list_lang`", "Affiche toutes les langues disponibles.")
+                        ]
+                    },
+                    "set": {
+                        "description": "Modifie un paramètre",
+                        "examples": [
+                            ("`{prefix}{prefix}set prefix %`", "Change le préfixe en `%`"),
+                        ],
+                    },
+                    "list": {
+                        "title": "Liste des Paramètres disponibles",
+                        "params": {
+                            "prefix": "Le préfixe utilisé sur le serveur",
                         },
                     },
                 },
+                "lang": "La langue {lang} est maintenant utilisée.",
+                "list_lang": {
+                    "title": "Langues disponibles",
+                },
+                "list": {
+                    "title": "Liste des paramètres modifiables",
+                    "params": {
+                        "prefix": "Préfixe utilisé par le bot."
+                    }
+                },
+                "add_master_admin": "L'utilisateur {user} est maintenant un administrateur du bot.",
+                "del_master_admin": "L'utilisateur {user} n'est plus un administrateur du bot.",
             },
+        },
+        "errors": {
+            "LangNotFoundError": "La langue {lang} est introuvable, tapez {prefix}list_lang pour voir les langues "
+                                 "disponibles.",
+            "PermissionError": "Vous n'avez pas la permission de faire cette action.",
+            "ModuleNotFoundOrDeactivatedError": {
+                "title": "Erreur",
+                "name": "Erreur lors de la désactivation du module {module}:",
+                "value": "Celui-ci n'existe pas ou n'es pas activé. Tapez {prefix}list_modules pour voir la liste des modules disponibles.",
+
+            },
+            "ModuleNotFoundError": {
+                "title": "Erreur",
+                "name": "Erreur lors de l'activation du module {module}:",
+                "value": "Celui-ci n'existe pas. Tapez {prefix}list_modules pour voir la liste des modules "
+                         "disponibles.",
+            },
+            "ForbiddenConfigError": "Ce paramètre ne peut pas être modifié directement.",
+            "UnknownConfigError": "Le paramètre demandé n'existe pas. Utilisez {prefix}list pour lister les paramètres "
+                                  "modifiables.",
+            "NotEnoughParamError": "Il manque un ou plusieurs parametres à la commande.",
+            "NoMentionsError": "Vous devez mentioner un utilisateur pour le rajouter à la liste des administrateurs "
+                               "du bot."
         },
     },
 }

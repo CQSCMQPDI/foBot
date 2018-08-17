@@ -9,7 +9,7 @@ class MainClass:
         self.guild = guild
 
     async def load(self, msg, command, args):
-        if msg.author.id in self.guild.config["master_admin"]:
+        if msg.author.id in self.guild.config["master_admins"]:
             errors = []
             for arg in args:
                 if args not in self.guild.config["modules"]:
@@ -17,37 +17,23 @@ class MainClass:
                     errors.extend(self.guild.update_modules())
             if errors:
                 texts = [
-                    (tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["error"]["name"] % module,
-                     tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["error"]["value"] %
-                     self.guild.config["prefixe"])
+                    (tr.tr[self.guild.config["lang"]]["errors"]["ModuleNotFoundError"]["name"].format(module=module),
+                     tr.tr[self.guild.config["lang"]]["errors"]["ModuleNotFoundError"]["value"].format(
+                         prefix=self.guild.config["prefix"]))
                     for module in errors
                 ]
-                embed = discord.Embed(
-                    title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["error"]["title"])
+                embed = discord.Embed(title=tr.tr[self.guild.config["lang"]]["errors"]["ModuleNotFoundError"]["title"])
                 for error in texts:
                     embed.add_field(name=error[0], value=error[1], inline=False)
                 await msg.channel.send(embed=embed)
-                self.guild.save_config()
+            self.guild.save_config()
         else:
-            embed = discord.Embed(
-                title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["title"])
-            if len(args) == 1:
-                embed.add_field(
-                    name=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["one"][
-                        "name"],
-                    value=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["one"][
-                        "value"])
-            else:
-                embed.add_field(
-                    name=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["many"][
-                        "name"],
-                    value=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["load"]["permissionError"]["many"][
-                        "value"])
-            await msg.channel.send(embed=embed)
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["PermissionError"])
+            return
         return
 
     async def unload(self, msg, command, args):
-        if msg.author.id in self.guild.config["master_admin"]:
+        if msg.author.id in self.guild.config["master_admins"]:
             errors = []
             for arg in args:
                 try:
@@ -57,35 +43,19 @@ class MainClass:
 
             errors.extend(self.guild.update_modules())
             if errors:
-                textes = [
-                    (tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["error"]["name"] % module,
-                     tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["error"]["value"] %
-                     self.guild.config["prefixe"])
-                    for module in errors
-                ]
+                textes = [(tr.tr[self.guild.config["lang"]]["errors"]["ModuleNotFoundOrDeactivated"]["name"].format(
+                    module=module),
+                           tr.tr[self.guild.config["lang"]]["errors"]["ModuleNotFoundOrDeactivated"]["value"].format(
+                               prefix=self.guild.config["prefix"])) for module in errors]
                 embed = discord.Embed(
-                    title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["error"]["title"])
+                    title=tr.tr[self.guild.config["lang"]]["errors"]["ModuleNotFoundOrDeactivated"]["title"])
                 for erreur in textes:
                     embed.add_field(name=erreur[0], value=erreur[1], inline=False)
                 await msg.channel.send(embed=embed)
             self.guild.save_config()
         else:
-            embed = discord.Embed(
-                title=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"][
-                    "title"])
-            if len(args) == 1:
-                embed.add_field(
-                    name=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"]["one"][
-                        "name"],
-                    value=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"]["one"][
-                        "value"])
-            else:
-                embed.add_field(
-                    name=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"]["many"][
-                        "name"],
-                    value=tr.tr[self.guild.config["lang"]]["modules"]["modules"]["unload"]["permissionError"]["many"][
-                        "value"])
-            await msg.channel.send(embed=embed)
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["PermissionError"])
+            return
         return
 
     async def list_modules(self, msg, command, args):
@@ -103,8 +73,8 @@ class MainClass:
         return
 
     async def on_message(self, msg):
-        if msg.content.startswith(self.guild.config["prefixe"]):
-            command, *args = msg.content.lstrip(self.guild.config["prefixe"]).split(" ")
+        if msg.content.startswith(self.guild.config["prefix"]):
+            command, *args = msg.content.lstrip(self.guild.config["prefix"]).split(" ")
             if command == "load":
                 await self.load(msg, command, args)
             elif command == "list_modules":

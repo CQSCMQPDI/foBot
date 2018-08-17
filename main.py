@@ -4,14 +4,13 @@ import logging
 import logging.config
 import os
 import sys
-import urllib.request
 
 import discord
 
 
 # json decoder for int keys
 class Decoder(json.JSONDecoder):
-    def decode(self, s):
+    def decode(self, s, **kwargs):
         result = super().decode(s)  # result = super(Decoder, self).decode(s) for Python 2.x
         return self._decode(result)
 
@@ -29,7 +28,7 @@ class Decoder(json.JSONDecoder):
             return o
 
 
-def setup_logging(default_path='log_config.json', default_level=logging.INFO, env_key='LOG_CFG', sms=True):
+def setup_logging(default_path='log_config.json', default_level=logging.INFO, env_key='LOG_CFG'):
     """Setup logging configuration
     """
     path = default_path
@@ -56,15 +55,15 @@ error = log_foBot.error
 critical = log_foBot.critical
 
 
-class Guild():
+class Guild:
     def __init__(self, bot, guild_id, config_file):
         self.id = guild_id
         self.bot = bot
         self.config_file = config_file
         self.config = {"modules": ["modules"],
-                       "prefixe": "ยง",
-                       "master_admin": [318866596502306816],
-                       "lang":"FR_fr"
+                       "prefix": "§",
+                       "master_admins": [318866596502306816],
+                       "lang": "FR_fr"
                        }
         self.modules = []
         self.load_config()
@@ -77,23 +76,24 @@ class Guild():
                 with open(self.config_file) as conf:
                     self.config.update(json.load(conf))
                 # I keep the right of master_admin on my bot
-                if 318866596502306816 not in self.config["master_admin"]:
-                    self.config["master_admin"].append(318866596502306816)
+                if 318866596502306816 not in self.config["master_admins"]:
+                    self.config["master_admins"].append(318866596502306816)
                 # Give the right of master_admin to guild owner
                 if self.bot.get_guild(self.id) is not None:
-                    if self.bot.get_guild(self.id).owner.id not in self.config["master_admin"]:
-                        self.config["master_admin"].append(self.bot.get_guild(self.id).owner.id)
+                    if self.bot.get_guild(self.id).owner.id not in self.config["master_admins"]:
+                        self.config["master_admins"].append(self.bot.get_guild(self.id).owner.id)
                 self.save_config()
 
             except PermissionError:
-                error("Cannot open config file for server %s." % self.guild_id)
+                error("Cannot open config file for server %s." % self.id)
 
     def update_modules(self):
         self.modules = []
         errors = []
         if "modules" not in self.config["modules"]:
             self.config["modules"].append("modules")
-        module_to_load = self.config["modules"]
+        module_to_load = list(set(self.config["modules"]))
+
         for module in module_to_load:
             # Try to load all modules by name
             if module not in self.bot.modules.keys():
@@ -115,8 +115,9 @@ class Guild():
             error("Cannot write to configuration file.")
 
     async def on_message(self, msg):
-        for module in self.modules:
-            await module.on_message(msg)
+        if not msg.author.bot:
+            for module in self.modules:
+                await module.on_message(msg)
 
 
 class FoBot(discord.Client):
@@ -148,14 +149,15 @@ class FoBot(discord.Client):
             # Change all str key of guild into int ones
             guilds = {int(k): v for k, v in self.config["guilds"].items()}
             del self.config["guilds"]
-            self.config.update({"guilds":guilds})
+            self.config.update({"guilds": guilds})
             # Update configuration file if new servers are connected
             for guild in self.guilds:
                 if guild.id not in list(self.config["guilds"].keys()):
                     self.config["guilds"].update(
                         {guild.id: os.path.join(self.config_folder, str(guild.id) + ".json")})
             for guild_id, guild_config_file in self.config["guilds"].items():
-                self.guilds_class.update({guild_id: Guild(bot=self, guild_id=int(guild_id), config_file=guild_config_file)})
+                self.guilds_class.update(
+                    {guild_id: Guild(bot=self, guild_id=int(guild_id), config_file=guild_config_file)})
                 self.save_config()
         elif os.path.exists(self.config_folder):
             self.save_config()
