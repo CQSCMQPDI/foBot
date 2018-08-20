@@ -1,0 +1,65 @@
+{
+  "graphite": {
+    "value": 15,
+    "time": 5,
+    "quantity": 1,
+    "required": {
+      "coal": 1
+    },
+    "building": "crafting"
+  },
+  "copperBar": {
+    "value": 25,
+    "time": 10,
+    "quantity": 1,
+    "required": {
+      "copper": 5
+    },
+    "building": "smelting"
+  },
+  "ironBar": {
+    "value": 40,
+    "time": 15,
+    "quantity": 1,
+    "required": {
+      "iron": 5
+    },
+    "building": "smelting"
+  },
+  "amberCharger": {
+    "value": 4,
+    "time": 5,
+    "quantity": 1,
+    "required": {
+      "amber": 1
+    },
+    "building": "crafting"
+  },
+  "polishedAmber": {
+    "value": 70,
+    "time": 30,
+    "quantity": 1,
+    "required": {
+      "amber": 5
+    },
+    "bullding": "jewel"
+  },
+  "goldBar": {
+    "value": 40,
+    "time": 15,
+    "quantity": 1,
+    "required": {
+      "gold": 5
+    },
+    "building": "smelting"
+  },
+  "copperNail": {
+    "value": 7,
+    "time": 20,
+    "quantity": 10,
+    "required": {
+      "copperBar": 1
+    },
+    "building": "crafting"
+  }
+}
