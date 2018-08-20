@@ -132,7 +132,7 @@ class FoBot(discord.Client):
 
     def load_modules(self):
         for module in os.listdir('modules'):
-            if module != "__pycache__":
+            if module[0] != "_" and module.endswith(".py"):
                 imported = importlib.import_module('modules.' + module[:-3])
                 self.modules.update({module[:-3]: imported.MainClass})
 

@@ -17,7 +17,7 @@ class MainClass:
             await msg.channel.send(tr.tr[self.guild.config["lang"]]["error"]["OreNotFoundError"].format(ore=args[0]))
             return
         else:
-            text = tr.tr[self.guild.config["lang"]]["modules"]["deeptown"].format(ore=args[0])
+            text = tr.tr[self.guild.config["lang"]]["modules"]["deeptown"]["best_place_mine"].format(ore=args[0])
             i = 0
             for mine in self.optimizer.best_mines(args[0]):
                 if i >= 10:
@@ -43,7 +43,8 @@ class MainClass:
 
     async def to_make(self, msg, command, args):
         if args[0] not in self.optimizer.items.keys():
-            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["ItemNotFound"].format(item=args[0]))
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["ItemNotFoundError"].format(item=args[0]))
+            return
         try:
             quantity = int(args[1])
         except ValueError:
@@ -57,6 +58,25 @@ class MainClass:
                                                                                       item=args[0], needed=needed,
                                                                                       value=result["value"]))
 
+    async def to_make_recursive(self, msg, command, args):
+        if args[0] not in self.optimizer.items.keys():
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["ItemNotFoundError"].format(item=args[0]))
+            return
+        try:
+            quantity = int(args[1])
+        except ValueError:
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["NotIntError"].format(number=args[1]))
+            return
+        needed = self.optimizer.recursive_to_make(args[0], quantity)
+        texte = tr.tr[self.guild.config["lang"]]["modules"]["deeptown"]["recursive_to_make"]["header"] \
+            .format(item=args[0], quantity=quantity)
+        for item in needed[1:]:
+            texte += "\n"
+            texte += tr.tr[self.guild.config["lang"]]["modules"]["deeptown"]["recursive_to_make"]["line"] \
+                .format(item=item[0], quantity=item[1], time=datetime.timedelta(seconds=int(item[2])))
+        texte += "```"
+        await msg.channel.send(texte)
+
     async def on_message(self, msg):
         if msg.content.startswith(self.guild.config["prefix"]):
             command, *args = msg.content.lstrip(self.guild.config["prefix"]).split(" ")
@@ -66,4 +86,6 @@ class MainClass:
                 await self.reload_optimizer(msg, command, args)
             elif command == "to_make":
                 await self.to_make(msg, command, args)
+            elif command == "to_make_recursive":
+                await self.to_make_recursive(msg, command, args)
         return
