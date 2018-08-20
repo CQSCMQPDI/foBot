@@ -199,4 +199,4 @@ class FoBot(discord.Client):
 
 
 myBot = FoBot()
-myBot.run("", max_messages=100000000)
+myBot.run(os.environ.get("DISCORD_TOKEN", ""), max_messages=100000000)
