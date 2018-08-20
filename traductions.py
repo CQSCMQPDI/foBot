@@ -3,7 +3,7 @@ tr = {
         "description": "Français",
         "modules": {
             "modules": {
-                "description": "Permet de gérer les modules.",
+                "description": "Gestion des modules.",
                 "aide": {
                     "list_modules": {
                         "description": "Liste tous les modules. Les modules en gras sont activés.",
@@ -75,6 +75,14 @@ tr = {
                 "add_master_admin": "L'utilisateur {user} est maintenant un administrateur du bot.",
                 "del_master_admin": "L'utilisateur {user} n'est plus un administrateur du bot.",
             },
+            "deeptown": {
+                "description": "Commandes relatives au jeu deeptown.",
+                "aide":{
+
+                },
+                "best_place_mine":"Voici les meilleurs emplacements pour le minerais {ore}\n```\n",
+                "to_make":"Pour faire {quantity} {item} il faudra {time}. Il vous faudra {needed}. La valeur totale de la production est {value}.",
+            },
         },
         "errors": {
             "LangNotFoundError": "La langue {lang} est introuvable, tapez {prefix}list_lang pour voir les langues "
@@ -97,7 +105,10 @@ tr = {
                                   "modifiables.",
             "NotEnoughParamError": "Il manque un ou plusieurs parametres à la commande.",
             "NoMentionsError": "Vous devez mentioner un utilisateur pour le rajouter à la liste des administrateurs "
-                               "du bot."
+                               "du bot.",
+            "OreNotFoundError": "{ore} n'est pas un minerais valide.",
+            "NotIntError":"{number} n'est pas un nombre entier valide.",
+            "ItemNotFoundError":"{item} n'extiste pas dans deeptown",
         },
     },
 }

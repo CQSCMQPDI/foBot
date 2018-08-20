@@ -96,7 +96,7 @@ class Guild:
 
         for module in module_to_load:
             # Try to load all modules by name
-            if module not in self.bot.modules.keys():
+            if module not in self.bot.modules.keys() or module.startswith("_"):
                 # Module is not an existing module
                 self.config["modules"].remove(module)
                 # Write an error in log
@@ -132,7 +132,7 @@ class FoBot(discord.Client):
 
     def load_modules(self):
         for module in os.listdir('modules'):
-            if module != "__pycache__" and module.endswith(".py"):
+            if module[0] != "_" and module.endswith(".py"):
                 imported = importlib.import_module('modules.' + module[:-3])
                 self.modules.update({module[:-3]: imported.MainClass})
 

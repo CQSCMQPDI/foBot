@@ -1,0 +1,54 @@
+{
+  "0": {
+    "coal": 0,
+    "copper": 0,
+    "iron": 0,
+    "amber": 0,
+    "gold": 0,
+    "aluminium": 0,
+    "silver": 0,
+    "emerald": 0,
+    "ruby": 0,
+    "diamond": 0,
+    "topaz": 0,
+    "sapphire": 0,
+    "amethyst": 0,
+    "alexandrite": 0,
+    "titanium": 0,
+    "uranium": 0,
+    "platinum": 0,
+    "helium3": 0,
+    "obsidian": 0
+  },
+  "1": {
+    "coal": 1
+  },
+  "2": {
+    "coal": 0.70,
+    "copper": 0.30
+  },
+  "3": {
+    "coal": 0.595,
+    "copper": 0.2833,
+    "iron": 0.0917,
+    "amber": 0.025,
+    "gold": 0.005
+  },
+  "4": {
+    "coal": 0.5425,
+    "copper": 0.325,
+    "iron": 0.1025,
+    "amber": 0.0225,
+    "gold": 0.0075
+  },
+  "5": {
+    "coal": 0.4900,
+    "copper": 0.3667,
+    "iron": 0.1133,
+    "amber": 0.0200,
+    "gold": 0.0100
+  },
+  "13": {
+    "copper": 1
+  }
+}
