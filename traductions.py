@@ -4,23 +4,23 @@ tr = {
         "modules": {
             "modules": {
                 "description": "Permet de gérer les modules.",
-                "aide": {
+                "help": {
                     "list_modules": {
                         "description": "Liste tous les modules. Les modules en gras sont activés.",
-                        "exemples": [
+                        "examples": [
                             ("`{prefix}list_modules`", "Liste tous les modules"),
                         ],
                     },
                     "load": {
                         "description": "Permet de charger un ou des modules.",
-                        "exemples": [
+                        "examples": [
                             ("`{prefix}load fun`", "Charge le module fun"),
                             ("`{prefix}load fun admin`", "Charge les modules fun et admin"),
                         ],
                     },
                     "unload": {
                         "description": "Permet de décharger un ou des modules.",
-                        "exemples": [
+                        "examples": [
                             ("`{prefix}unload fun`", "Décharge le module fun"),
                             ("`{prefix}unload fun admin`", "Décharge les modules fun et admin"),
                         ],
@@ -36,7 +36,7 @@ tr = {
             },
             "config": {
                 "description": "Configuration de foBot, doublez le préfixe pour y accéder.",
-                "aide": {
+                "help": {
                     "lang": {
                         "description": "Modifier la langue",
                         "examples": [
@@ -56,10 +56,10 @@ tr = {
                         ],
                     },
                     "list": {
-                        "title": "Liste des Paramètres disponibles",
-                        "params": {
-                            "prefix": "Le préfixe utilisé sur le serveur",
-                        },
+                        "description": "Liste des paramètres disponibles",
+                        "examples": [
+                            ("`{prefix}{prefix}list`", "Liste des paramètres modifiables")
+                        ],
                     },
                 },
                 "lang": "La langue {lang} est maintenant utilisée.",
@@ -75,6 +75,19 @@ tr = {
                 "add_master_admin": "L'utilisateur {user} est maintenant un administrateur du bot.",
                 "del_master_admin": "L'utilisateur {user} n'est plus un administrateur du bot.",
             },
+            "help": {
+                "description": "Active la commande d'aide",
+                "help": {
+                    "help": {
+                        "description": "Permat d'aficher de l'aide",
+                        "examples": [
+                            ("`{prefix}help`", "Affiche l'aide générale"),
+                            ("`{prefix}help config`", "Liste les commandes disponibles dans le module config"),
+                            ("`{prefix}help config:lang`", "Affiche l'aide avancé de la commande lang u module config"),
+                        ],
+                    },
+                },
+            },
         },
         "errors": {
             "LangNotFoundError": "La langue {lang} est introuvable, tapez {prefix}list_lang pour voir les langues "
@@ -83,7 +96,8 @@ tr = {
             "ModuleNotFoundOrDeactivatedError": {
                 "title": "Erreur",
                 "name": "Erreur lors de la désactivation du module {module}:",
-                "value": "Celui-ci n'existe pas ou n'es pas activé. Tapez {prefix}list_modules pour voir la liste des modules disponibles.",
+                "value": "Celui-ci n'existe pas ou n'es pas activé. Tapez {prefix}list_modules pour voir la liste des "
+                         "modules disponibles.",
 
             },
             "ModuleNotFoundError": {
@@ -91,13 +105,16 @@ tr = {
                 "name": "Erreur lors de l'activation du module {module}:",
                 "value": "Celui-ci n'existe pas. Tapez {prefix}list_modules pour voir la liste des modules "
                          "disponibles.",
+                "text": "Le module {module} n'existe pas, tapez {prefix}list_modules pour voir la liste des modules "
+                         "disponibles.",
             },
             "ForbiddenConfigError": "Ce paramètre ne peut pas être modifié directement.",
             "UnknownConfigError": "Le paramètre demandé n'existe pas. Utilisez {prefix}list pour lister les paramètres "
                                   "modifiables.",
             "NotEnoughParamError": "Il manque un ou plusieurs parametres à la commande.",
             "NoMentionsError": "Vous devez mentioner un utilisateur pour le rajouter à la liste des administrateurs "
-                               "du bot."
+                               "du bot.",
+            "CommandNotFoundError": "La commande {command} n'existe pas."
         },
     },
 }
