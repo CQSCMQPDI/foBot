@@ -50,7 +50,6 @@ class Optimizer():
                 already_crafted = [result[0] for result in results]
                 index = 0
                 for i, q, t in needed_result:
-                    print(i, q, t)
                     if i in already_crafted:
                         results[already_crafted.index(i)] = (
                             results[already_crafted.index(i)][0],

@@ -13,6 +13,9 @@ class MainClass:
         self.optimizer = optimizer.Optimizer()
 
     async def best_place_mine(self, msg, command, args):
+        if len(args) == 0:
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["NotEnoughParamError"])
+            return
         if args[0] not in self.optimizer.mines["0"].keys():
             await msg.channel.send(tr.tr[self.guild.config["lang"]]["error"]["OreNotFoundError"].format(ore=args[0]))
             return
@@ -42,6 +45,9 @@ class MainClass:
             self.optimizer = optimizer.Optimizer()
 
     async def to_make(self, msg, command, args):
+        if len(args) == 0:
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["NotEnoughParamError"])
+            return
         if args[0] not in self.optimizer.items.keys():
             await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["ItemNotFoundError"].format(item=args[0]))
             return
@@ -59,6 +65,11 @@ class MainClass:
                                                                                       value=result["value"]))
 
     async def to_make_recursive(self, msg, command, args):
+        if len(args) == 0:
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["NotEnoughParamError"])
+            return
+        if len(args) == 1:
+            args.append("1")
         if args[0] not in self.optimizer.items.keys():
             await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["ItemNotFoundError"].format(item=args[0]))
             return

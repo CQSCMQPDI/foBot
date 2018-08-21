@@ -4,7 +4,7 @@
     "time": 5,
     "quantity": 1,
     "required": {
-      "coal": 1
+      "coal": 5
     },
     "building": "crafting"
   },
@@ -140,7 +140,7 @@
     "time": 1800,
     "quantity": 2,
     "required": {
-      "liana":1
+      "liana": 1
     },
     "building": "chemistery"
   },
@@ -156,11 +156,22 @@
   },
   "water": {
     "value": 5,
-    "time":120,
-    "quantity":10,
-    "required":{
-      "amberCharger":20,
-      "cosmicIce":10
-    }
+    "time": 120,
+    "quantity": 10,
+    "required": {
+      "amberCharger": 20,
+      "cosmicIce": 10
+    },
+    "building": "smelting"
+  },
+  "copperKnive": {
+    "value": 300,
+    "time": 120,
+    "quantity": 1,
+    "required": {
+      "copperBar": 1,
+      "pumpkin": 1
+    },
+    "building": "crafting"
   }
 }
