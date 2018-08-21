@@ -92,6 +92,8 @@ class Guild:
         errors = []
         if "modules" not in self.config["modules"]:
             self.config["modules"].append("modules")
+        if "help" not in self.config["modules"]:
+            self.config["modules"].append("help")
         module_to_load = list(set(self.config["modules"]))
 
         for module in module_to_load:
@@ -118,6 +120,7 @@ class Guild:
         if not msg.author.bot:
             for module in self.modules:
                 await module.on_message(msg)
+        return
 
 
 class FoBot(discord.Client):
