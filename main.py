@@ -1,3 +1,4 @@
+import ftplib
 import importlib
 import json
 import logging
@@ -14,10 +15,11 @@ fileSystem = None
 
 if os.environ.get("FTP_ADDRESS", False) and os.environ.get("FTP_USER", False) and os.environ.get("FTP_PASS", False):
     print("FTP")
-    fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"])
+    fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"], timeout=600)
 else:
     print("OS")
     fileSystem = OSFS(os.getcwd())
+
 
 # json decoder for int keys
 class Decoder(json.JSONDecoder):
@@ -206,7 +208,12 @@ class FoBot(discord.Client):
         info("foBot is resumed.")
 
     async def on_error(self, event, *args, **kwargs):
+        if sys.exc_type == ftplib.error_temp:
+            global fileSystem
+            fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"],
+                               timeout=600)
         error("foBot encounter an error.", exc_info=True)
+
 
     async def on_message(self, msg):
         await self.guilds_class[msg.guild.id].on_message(msg)
