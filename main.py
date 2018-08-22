@@ -6,7 +6,18 @@ import os
 import sys
 
 import discord
+from fs.ftpfs import FTPFS
+from fs.osfs import OSFS
+from fs import path
 
+fileSystem = None
+
+if os.environ.get("FTP_ADDRESS", False) and os.environ.get("FTP_USER", False) and os.environ("FTP_PASS", False):
+    print("FTP")
+    fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"])
+else:
+    print("OS")
+    fileSystem = OSFS(os.getcwd())
 
 # json decoder for int keys
 class Decoder(json.JSONDecoder):
@@ -70,10 +81,10 @@ class Guild:
         self.update_modules()
 
     def load_config(self):
-        if os.path.exists(self.config_file):
+        if fileSystem.exists(self.config_file):
             try:
                 # Loading configuration file
-                with open(self.config_file) as conf:
+                with fileSystem.open(self.config_file) as conf:
                     self.config.update(json.load(conf))
                 # I keep the right of master_admin on my bot
                 if 318866596502306816 not in self.config["master_admins"]:
@@ -111,7 +122,7 @@ class Guild:
 
     def save_config(self):
         try:
-            with open(self.config_file, 'w') as conf_file:
+            with fileSystem.open(self.config_file, 'w') as conf_file:
                 json.dump(self.config, conf_file)
         except PermissionError:
             error("Cannot write to configuration file.")
@@ -140,10 +151,10 @@ class FoBot(discord.Client):
                 self.modules.update({module[:-3]: imported.MainClass})
 
     def load_config(self):
-        if os.path.exists(os.path.join(self.config_folder, "conf.json")):
+        if fileSystem.exists(path.join(self.config_folder, "conf.json")):
             try:
                 # Loading configuration file
-                with open(os.path.join(self.config_folder, "conf.json")) as conf:
+                with fileSystem.open(path.join(self.config_folder, "conf.json")) as conf:
                     self.config.update(json.load(conf))
             except PermissionError:
                 critical("Cannot open config file.")
@@ -157,16 +168,16 @@ class FoBot(discord.Client):
             for guild in self.guilds:
                 if guild.id not in list(self.config["guilds"].keys()):
                     self.config["guilds"].update(
-                        {guild.id: os.path.join(self.config_folder, str(guild.id) + ".json")})
+                        {guild.id: path.join(self.config_folder, str(guild.id) + ".json")})
             for guild_id, guild_config_file in self.config["guilds"].items():
                 self.guilds_class.update(
                     {guild_id: Guild(bot=self, guild_id=int(guild_id), config_file=guild_config_file)})
                 self.save_config()
-        elif os.path.exists(self.config_folder):
+        elif fileSystem.exists(self.config_folder):
             self.save_config()
         else:
             try:
-                os.mkdir(self.config_folder)
+                fileSystem.makedir(self.config_folder)
             except PermissionError:
                 critical("Cannot create config folder.")
                 sys.exit()
@@ -175,7 +186,7 @@ class FoBot(discord.Client):
         for guild in self.guilds_class.values():
             guild.save_config()
         try:
-            with open(os.path.join(self.config_folder, "conf.json"), 'w') as conf_file:
+            with fileSystem.open(path.join(self.config_folder, "conf.json"), 'w') as conf_file:
                 json.dump(self.config, conf_file, indent=4)
         except PermissionError:
             critical("Cannot write to configuration file.")

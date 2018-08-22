@@ -3,7 +3,7 @@ import traductions as tr
 
 
 class MainClass:
-    name = "modules"
+    name = "help"
 
     def __init__(self, guild):
         self.guild = guild
