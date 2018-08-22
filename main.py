@@ -12,7 +12,7 @@ from fs import path
 
 fileSystem = None
 
-if os.environ.get("FTP_ADDRESS", False) and os.environ.get("FTP_USER", False) and os.environ("FTP_PASS", False):
+if os.environ.get("FTP_ADDRESS", False) and os.environ.get("FTP_USER", False) and os.environ.get("FTP_PASS", False):
     print("FTP")
     fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"])
 else:
