@@ -208,10 +208,6 @@ class FoBot(discord.Client):
         info("foBot is resumed.")
 
     async def on_error(self, event, *args, **kwargs):
-        if sys.exc_type == ftplib.error_temp:
-            global fileSystem
-            fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"],
-                               timeout=600)
         error("foBot encounter an error.", exc_info=True)
 
 
