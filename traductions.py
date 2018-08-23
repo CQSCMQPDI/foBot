@@ -61,6 +61,24 @@ tr = {
                             ("`{prefix}{prefix}list`", "Liste des paramètres modifiables")
                         ],
                     },
+                    "add_master_admin": {
+                        "description": "Ajoute un administrateur du bot",
+                        "examples": [
+                            ("`{prefix}{prefix}add_master_admin <@unemention>`",
+                             "Ajoute <@unemention> aux administrateurs du bot"),
+                            ("`{prefix}{prefix}add_master_admin <@unemention>, <@unemention2>`",
+                             "Ajoute <@unemention> et <@unemention1> aux administrateurs du bot"),
+                        ],
+                    },
+                    "del_master_admin": {
+                        "description": "Supprime un administrateur du bot",
+                        "examples": [
+                            ("`{prefix}{prefix}del_master_admin <@unemention>`",
+                             "Supprime <@unemention> des administrateurs du bot"),
+                            ("`{prefix}{prefix}add_master_admin <@unemention>, <@unemention2>`",
+                             "Supprime <@unemention> et <@unemention1> des administrateurs du bot"),
+                        ],
+                    },
                 },
                 "lang": "La langue {lang} est maintenant utilisée.",
                 "list_lang": {
@@ -106,7 +124,7 @@ tr = {
                 "value": "Celui-ci n'existe pas. Tapez {prefix}list_modules pour voir la liste des modules "
                          "disponibles.",
                 "text": "Le module {module} n'existe pas, tapez {prefix}list_modules pour voir la liste des modules "
-                         "disponibles.",
+                        "disponibles.",
             },
             "ForbiddenConfigError": "Ce paramètre ne peut pas être modifié directement.",
             "UnknownConfigError": "Le paramètre demandé n'existe pas. Utilisez {prefix}list pour lister les paramètres "
