@@ -4,23 +4,23 @@ tr = {
         "modules": {
             "modules": {
                 "description": "Gestion des modules.",
-                "aide": {
+                "help": {
                     "list_modules": {
                         "description": "Liste tous les modules. Les modules en gras sont activés.",
-                        "exemples": [
+                        "examples": [
                             ("`{prefix}list_modules`", "Liste tous les modules"),
                         ],
                     },
                     "load": {
                         "description": "Permet de charger un ou des modules.",
-                        "exemples": [
+                        "examples": [
                             ("`{prefix}load fun`", "Charge le module fun"),
                             ("`{prefix}load fun admin`", "Charge les modules fun et admin"),
                         ],
                     },
                     "unload": {
                         "description": "Permet de décharger un ou des modules.",
-                        "exemples": [
+                        "examples": [
                             ("`{prefix}unload fun`", "Décharge le module fun"),
                             ("`{prefix}unload fun admin`", "Décharge les modules fun et admin"),
                         ],
@@ -36,7 +36,7 @@ tr = {
             },
             "config": {
                 "description": "Configuration de foBot, doublez le préfixe pour y accéder.",
-                "aide": {
+                "help": {
                     "lang": {
                         "description": "Modifier la langue",
                         "examples": [
@@ -56,10 +56,28 @@ tr = {
                         ],
                     },
                     "list": {
-                        "title": "Liste des Paramètres disponibles",
-                        "params": {
-                            "prefix": "Le préfixe utilisé sur le serveur",
-                        },
+                        "description": "Liste des paramètres disponibles",
+                        "examples": [
+                            ("`{prefix}{prefix}list`", "Liste des paramètres modifiables")
+                        ],
+                    },
+                    "add_master_admin": {
+                        "description": "Ajoute un administrateur du bot",
+                        "examples": [
+                            ("`{prefix}{prefix}add_master_admin <@unemention>`",
+                             "Ajoute <@unemention> aux administrateurs du bot"),
+                            ("`{prefix}{prefix}add_master_admin <@unemention>, <@unemention2>`",
+                             "Ajoute <@unemention> et <@unemention1> aux administrateurs du bot"),
+                        ],
+                    },
+                    "del_master_admin": {
+                        "description": "Supprime un administrateur du bot",
+                        "examples": [
+                            ("`{prefix}{prefix}del_master_admin <@unemention>`",
+                             "Supprime <@unemention> des administrateurs du bot"),
+                            ("`{prefix}{prefix}add_master_admin <@unemention>, <@unemention2>`",
+                             "Supprime <@unemention> et <@unemention1> des administrateurs du bot"),
+                        ],
                     },
                 },
                 "lang": "La langue {lang} est maintenant utilisée.",
@@ -77,15 +95,30 @@ tr = {
             },
             "deeptown": {
                 "description": "Commandes relatives au jeu deeptown.",
-                "aide":{
+                "aide": {
 
                 },
-                "best_place_mine":"Voici les meilleurs emplacements pour le minerais {ore}\n```\n",
-                "to_make":"Pour faire {quantity} {item} il faudra {time}. Il vous faudra {needed}. La valeur totale de la production est {value}.",
-                "recursive_to_make":{
-                    "header":"Pour faire {quantity} {item} il vous faudra:\n```",
-                    "line":"{item:20} | {quantity} | {time}"
-                }
+                "best_place_mine": "Voici les meilleurs emplacements pour le minerais {ore}\n```\n",
+                "to_make": "Pour faire {quantity} {item} il faudra {time}. Il vous faudra {needed}. La valeur totale "
+                           "de la production est {value}.",
+                "recursive_to_make": {
+                    "header": "Pour faire {quantity} {item} il vous faudra:\n```",
+                    "line": "{item:20} | {quantity} | {time}"
+                },
+            },
+            "help": {
+                "description": "Active la commande d'aide",
+                "help": {
+                    "help": {
+                        "description": "Permat d'aficher de l'aide",
+                        "examples": [
+                            ("`{prefix}help`", "Affiche l'aide générale"),
+                            ("`{prefix}help config`", "Liste les commandes disponibles dans le module config"),
+                            ("`{prefix}help config:lang`",
+                             "Affiche l'aide avancé de la commande lang u module config"),
+                        ],
+                    },
+                },
             },
         },
         "errors": {
@@ -95,7 +128,8 @@ tr = {
             "ModuleNotFoundOrDeactivatedError": {
                 "title": "Erreur",
                 "name": "Erreur lors de la désactivation du module {module}:",
-                "value": "Celui-ci n'existe pas ou n'es pas activé. Tapez {prefix}list_modules pour voir la liste des modules disponibles.",
+                "value": "Celui-ci n'existe pas ou n'es pas activé. Tapez {prefix}list_modules pour voir la liste des "
+                         "modules disponibles.",
 
             },
             "ModuleNotFoundError": {
@@ -103,6 +137,8 @@ tr = {
                 "name": "Erreur lors de l'activation du module {module}:",
                 "value": "Celui-ci n'existe pas. Tapez {prefix}list_modules pour voir la liste des modules "
                          "disponibles.",
+                "text": "Le module {module} n'existe pas, tapez {prefix}list_modules pour voir la liste des modules "
+                        "disponibles.",
             },
             "ForbiddenConfigError": "Ce paramètre ne peut pas être modifié directement.",
             "UnknownConfigError": "Le paramètre demandé n'existe pas. Utilisez {prefix}list pour lister les paramètres "
@@ -111,8 +147,9 @@ tr = {
             "NoMentionsError": "Vous devez mentioner un utilisateur pour le rajouter à la liste des administrateurs "
                                "du bot.",
             "OreNotFoundError": "{ore} n'est pas un minerais valide.",
-            "NotIntError":"{number} n'est pas un nombre entier valide.",
-            "ItemNotFoundError":"{item} n'extiste pas dans deeptown",
+            "NotIntError": "{number} n'est pas un nombre entier valide.",
+            "ItemNotFoundError": "{item} n'extiste pas dans deeptown",
+            "CommandNotFoundError": "La commande {command} n'existe pas."
         },
     },
 }
