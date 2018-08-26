@@ -95,8 +95,29 @@ tr = {
             },
             "deeptown": {
                 "description": "Commandes relatives au jeu deeptown.",
-                "aide": {
+                "help": {
+                    "best_place_mine": {
+                        "description": "Montre les meilleurs emplacements de mine pour un cerain minerais.",
+                        "examples": [
+                            ("`{prefix}best_place_mine iron`",
+                             "Donne les meilleurs emplaceent pour le minerais de fer.")
+                        ],
+                    },
+                    "to_make": {
+                        "description": "Donne les resource nécessaires pour faire un item.",
+                        "example": [
+                            ("`{prefix}to_make copperNail 100`",
+                             "Donne les resources pour faire 100 clous en cuivre, càd 10 copperBar."),
+                        ],
+                    },
+                    "to_make_recursive": {
+                        "description": "Donne toutes les resources nécessaires pour faire un item.",
+                        "example": [
+                            ("`{prefix}to_make_recursive copperNail 100`",
+                             "Donne les resources pour faire 100 copperNail, càd 10 copperBar et 50 copper."),
+                        ],
 
+                    }
                 },
                 "best_place_mine": "Voici les meilleurs emplacements pour le minerais {ore}\n```\n",
                 "to_make": "Pour faire {quantity} {item} il faudra {time}. Il vous faudra {needed}. La valeur totale "

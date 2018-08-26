@@ -12,6 +12,9 @@ class MainClass:
         self.guild = guild
         self.optimizer = optimizer.Optimizer()
 
+    async def reload_data(self, msg, command, args):
+        pass
+
     async def best_place_mine(self, msg, command, args):
         if len(args) == 0:
             await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["NotEnoughParamError"])

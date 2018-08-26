@@ -1,177 +1,1559 @@
 {
-  "graphite": {
-    "value": 15,
-    "time": 5,
+  "accumulator": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 9000,
     "quantity": 1,
-    "required": {
-      "coal": 5
-    },
-    "building": "crafting"
+    "needed": {
+      "sulfur": 20,
+      "sodium": 20
+    }
   },
-  "copperBar": {
-    "value": 25,
-    "time": 10,
+  "insulatedwire": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 750,
     "quantity": 1,
-    "required": {
-      "copper": 5
-    },
-    "building": "smelting"
+    "needed": {
+      "wire": 1,
+      "amberinsulation": 1
+    }
   },
-  "ironBar": {
-    "value": 40,
-    "time": 15,
+  "amberinsulation": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 125,
     "quantity": 1,
-    "required": {
-      "iron": 5
-    },
-    "building": "smelting"
+    "needed": {
+      "aluminiumbottle": 1,
+      "amber": 10
+    }
   },
-  "amberCharger": {
-    "value": 4,
-    "time": 5,
+  "aluminiumbottle": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 55,
     "quantity": 1,
-    "required": {
-      "amber": 1
-    },
-    "building": "crafting"
+    "needed": {
+      "aluminiumbar": 1
+    }
   },
-  "polishedAmber": {
-    "value": 70,
-    "time": 30,
-    "quantity": 1,
-    "required": {
-      "amber": 5
-    },
-    "bullding": "jewel"
-  },
-  "goldBar": {
-    "value": 40,
-    "time": 15,
-    "quantity": 1,
-    "required": {
-      "gold": 5
-    },
-    "building": "smelting"
-  },
-  "copperNail": {
-    "value": 7,
-    "time": 20,
-    "quantity": 10,
-    "required": {
-      "copperBar": 1
-    },
-    "building": "crafting"
-  },
-  "battery": {
-    "value": 200,
-    "time": 120,
-    "quantity": 1,
-    "required": {
-      "copperBar": 5,
-      "ironBar": 1,
-      "amber": 1
-    },
-    "building": "crafting"
-  },
-  "wire": {
-    "value": 15,
-    "time": 30,
+  "greenlaser": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 400,
     "quantity": 5,
-    "required": {
-      "copperBar": 1
-    },
-    "building": "crafting"
+    "needed": {
+      "polishedemerald": 1,
+      "insulatedwire": 1,
+      "lamp": 1
+    }
+  },
+  "ambercharger": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 4,
+    "quantity": 1,
+    "needed": {
+      "amber": 1
+    }
   },
   "lamp": {
+    "type": "crafted",
+    "building": "crafting",
     "value": 760,
-    "time": 80,
     "quantity": 1,
-    "required": {
-      "copperBar": 5,
+    "needed": {
+      "copperbar": 5,
       "wire": 10,
       "graphite": 20
-    },
-    "building": "crafting"
+    }
   },
-  "circuit": {
-    "value": 800,
-    "time": 180,
+  "circuits": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 2070,
     "quantity": 1,
-    "required": {
-      "copperBar": 20,
+    "needed": {
+      "ironbar": 10,
       "graphite": 50,
-      "ironBar": 10
-    },
-    "building": "crafting"
+      "copperbar": 20
+    }
   },
-  "node": {
+  "battery": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 200,
+    "quantity": 1,
+    "needed": {
+      "amber": 1,
+      "ironbar": 1,
+      "copperbar": 5
+    }
+  },
+  "sattelitedish": {
+    "type": "quest",
+    "building": "crafting",
     "value": 0,
-    "time": 10800,
     "quantity": 1,
-    "required": {
-      "lamp": 1900,
-      "glass": 1600,
-      "copperBar": 9555
-    },
-    "building": "crafting"
+    "needed": {
+      "wire": 50,
+      "coppernail": 500,
+      "ironbar": 20
+    }
   },
-  "glass": {
-    "value": 450,
-    "time": 60,
+  "graphite": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 15,
     "quantity": 1,
-    "required": {
-      "silicon": 2
-    },
-    "building": "smelting"
+    "needed": {
+      "coal": 5
+    }
   },
-  "solarPanel": {
+  "coppernail": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 7,
+    "quantity": 10,
+    "needed": {
+      "copperbar": 1
+    }
+  },
+  "wire": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 15,
+    "quantity": 5,
+    "needed": {
+      "copperbar": 1
+    }
+  },
+  "silverbar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 200,
+    "quantity": 1,
+    "needed": {
+      "silver": 5
+    }
+  },
+  "solarpanel": {
+    "type": "crafted",
+    "building": "crafting",
     "value": 69000,
-    "time": 60,
     "quantity": 1,
-    "required": {
-      "glass": 50,
+    "needed": {
+      "rubber": 1,
       "silicon": 10,
-      "rubber": 1
-    },
-    "building": "crafting"
+      "glass": 50
+    }
   },
-  "rubber": {
-    "value": 4000,
-    "time": 1800,
-    "quantity": 2,
-    "required": {
-      "liana": 1
-    },
-    "building": "chemistery"
+  "motherboard": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 17000,
+    "quantity": 1,
+    "needed": {
+      "goldbar": 1,
+      "circuits": 3,
+      "silicon": 3
+    }
+  },
+  "steelplate": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 1800,
+    "quantity": 1,
+    "needed": {
+      "steelbar": 5
+    }
+  },
+  "titaniumbar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 3000,
+    "quantity": 1,
+    "needed": {
+      "titanium": 5
+    }
+  },
+  "steelbar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 180,
+    "quantity": 1,
+    "needed": {
+      "graphite": 1,
+      "ironbar": 1
+    }
+  },
+  "ironbar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 40,
+    "quantity": 1,
+    "needed": {
+      "iron": 5
+    }
+  },
+  "copperbar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 25,
+    "quantity": 1,
+    "needed": {
+      "copper": 5
+    }
+  },
+  "trillium": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "saronite": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "thorium": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "moonstone": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "mithril": {
+    "type": "unknown",
+    "building": "",
+    "value": 14,
+    "quantity": 0,
+    "needed": {}
+  },
+  "anaptanium": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "arcanite": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "diamondcutter": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 5000,
+    "quantity": 1,
+    "needed": {
+      "steelplate": 1,
+      "polisheddiamond": 5
+    }
+  },
+  "bomb": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 55500,
+    "quantity": 1,
+    "needed": {
+      "steelbar": 5,
+      "gunpowder": 10
+    }
+  },
+  "opticfiber": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 10500,
+    "quantity": 10,
+    "needed": {
+      "plasticplate": 1,
+      "oxygen": 10,
+      "silicon": 10
+    }
+  },
+  "techinducer": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "motherboard": 50
+    }
+  },
+  "portal": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "circuits": 100,
+      "polishedemerald": 500
+    }
+  },
+  "antenna": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "propellers": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "aluminiumbar": 25,
+      "insulatedwire": 50,
+      "steelbar": 25
+    }
+  },
+  "jetengine": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "silverbar": 20,
+      "wire": 100,
+      "steelbar": 100
+    }
+  },
+  "fuselage": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "teslacoil": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "graphite": 100,
+      "insulatedwire": 100,
+      "amber": 100
+    }
+  },
+  "cpumodule": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "coppernail": 600,
+      "ironbar": 20,
+      "circuits": 10
+    }
+  },
+  "screenmodule": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "ironbar": 50,
+      "lamp": 50,
+      "wire": 300
+    }
+  },
+  "inputmodule": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "ironbar": 20,
+      "battery": 50
+    }
+  },
+  "rammodule": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "ironbar": 20,
+      "battery": 50
+    }
+  },
+  "amberbracelet": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 280,
+    "quantity": 0,
+    "needed": {}
+  },
+  "obsidianknife": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 32000,
+    "quantity": 0,
+    "needed": {}
+  },
+  "compressor": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 44000,
+    "quantity": 1,
+    "needed": {
+      "refinedoil": 2,
+      "rubber": 1,
+      "ironbar": 5
+    }
+  },
+  "haircomb": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 14000,
+    "quantity": 0,
+    "needed": {}
+  },
+  "emeraldring": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 450,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polishedobsidian": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 280,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polishedalexandrite": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 270,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polishedamethyst": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 250,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polishedsapphire": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 230,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polishedtopaz": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 200,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polishedruby": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 250,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polisheddiamond": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 300,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polishedemerald": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 160,
+    "quantity": 0,
+    "needed": {}
+  },
+  "polishedamber": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 70,
+    "quantity": 0,
+    "needed": {}
+  },
+  "goldbar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 250,
+    "quantity": 1,
+    "needed": {
+      "gold": 5
+    }
+  },
+  "labflask": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 800,
+    "quantity": 1,
+    "needed": {
+      "glass": 1
+    }
+  },
+  "aluminiumbar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 50,
+    "quantity": 1,
+    "needed": {
+      "aluminium": 5
+    }
+  },
+  "gear": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 18500,
+    "quantity": 1,
+    "needed": {
+      "diamondcutter": 1,
+      "titaniumbar": 1
+    }
+  },
+  "mayacalendar": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 6000,
+    "quantity": 0,
+    "needed": {}
+  },
+  "solidpropellant": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 27000,
+    "quantity": 1,
+    "needed": {
+      "aluminiumbar": 10,
+      "rubber": 3
+    }
+  },
+  "uranium": {
+    "type": "raw",
+    "building": "",
+    "value": 22,
+    "quantity": 0,
+    "needed": {}
+  },
+  "iron": {
+    "type": "raw",
+    "building": "",
+    "value": 3,
+    "quantity": 0,
+    "needed": {}
+  },
+  "copper": {
+    "type": "raw",
+    "building": "",
+    "value": 2,
+    "quantity": 0,
+    "needed": {}
+  },
+  "coal": {
+    "type": "raw",
+    "building": "smelting",
+    "value": 1,
+    "quantity": 50,
+    "needed": {
+      "tree": 1
+    }
   },
   "liana": {
+    "type": "organic",
+    "building": "greenhouse",
     "value": 1700,
-    "time": 1800,
     "quantity": 1,
-    "required": {
-      "lianaSeed": 1,
+    "needed": {
+      "lianaseed": 1,
       "water": 20
-    },
-    "building": "greenhouse"
+    }
+  },
+  "lianaseed": {
+    "type": "organic",
+    "building": "",
+    "value": 1000,
+    "quantity": 0,
+    "needed": {}
+  },
+  "grape": {
+    "type": "organic",
+    "building": "greenhouse",
+    "value": 1500,
+    "quantity": 2,
+    "needed": {
+      "grapeseed": 1,
+      "water": 15
+    }
+  },
+  "grapeseed": {
+    "type": "organic",
+    "building": "",
+    "value": 1200,
+    "quantity": 0,
+    "needed": {}
+  },
+  "treeseed": {
+    "type": "organic",
+    "building": "",
+    "value": 10,
+    "quantity": 0,
+    "needed": {}
+  },
+  "tree": {
+    "type": "organic",
+    "building": "greenhouse",
+    "value": 193,
+    "quantity": 10,
+    "needed": {
+      "treeseed": 1,
+      "water": 10
+    }
+  },
+  "glass": {
+    "type": "chemical",
+    "building": "smelting",
+    "value": 450,
+    "quantity": 1,
+    "needed": {
+      "silicon": 2
+    }
+  },
+  "gunpowder": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 2500,
+    "quantity": 20,
+    "needed": {
+      "tree": 2,
+      "sulfuricacid": 2,
+      "diethylether": 1
+    }
+  },
+  "uraniumrod": {
+    "type": "chemical",
+    "building": "uranium",
+    "value": 17000,
+    "quantity": 0,
+    "needed": {}
+  },
+  "diethylether": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 17000,
+    "quantity": 1,
+    "needed": {
+      "ethanol": 1,
+      "sulfuricacid": 1
+    }
+  },
+  "amber": {
+    "type": "raw",
+    "building": "",
+    "value": 4,
+    "quantity": 0,
+    "needed": {}
+  },
+  "titanium": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 260,
+    "quantity": 50,
+    "needed": {
+      "sulfuricacid": 1,
+      "titaniumore": 100
+    }
+  },
+  "refinedoil": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 16500,
+    "quantity": 1,
+    "needed": {
+      "oil": 10,
+      "hydrogen": 10,
+      "labflask": 1
+    }
+  },
+  "ethanol": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 4200,
+    "quantity": 1,
+    "needed": {
+      "aluminiumbottle": 1,
+      "grape": 2
+    }
+  },
+  "sodium": {
+    "type": "chemical",
+    "building": "",
+    "value": 100,
+    "quantity": 0,
+    "needed": {}
+  },
+  "silicon": {
+    "type": "chemical",
+    "building": "",
+    "value": 100,
+    "quantity": 0,
+    "needed": {}
+  },
+  "sulfur": {
+    "type": "chemical",
+    "building": "",
+    "value": 100,
+    "quantity": 0,
+    "needed": {}
+  },
+  "sulfuricacid": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 3500,
+    "quantity": 1,
+    "needed": {
+      "sulfur": 2,
+      "cleanwater": 1
+    }
+  },
+  "rubber": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 4000,
+    "quantity": 2,
+    "needed": {
+      "liana": 1
+    }
+  },
+  "cleanwater": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 1200,
+    "quantity": 1,
+    "needed": {
+      "labflask": 1,
+      "water": 1
+    }
+  },
+  "liquidnitrogen": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 12500,
+    "quantity": 4,
+    "needed": {
+      "aluminiumbottle": 1,
+      "nitrogen": 10,
+      "compressor": 1
+    }
+  },
+  "nitrogen": {
+    "type": "chemical",
+    "building": "",
+    "value": 300,
+    "quantity": 0,
+    "needed": {}
+  },
+  "oxygen": {
+    "type": "chemical",
+    "building": "",
+    "value": 900,
+    "quantity": 0,
+    "needed": {}
+  },
+  "hydrogen": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 400,
+    "quantity": 2,
+    "needed": {
+      "cleanwater": 1
+    }
   },
   "water": {
+    "type": "raw",
+    "building": "smelting",
     "value": 5,
-    "time": 120,
     "quantity": 10,
-    "required": {
-      "amberCharger": 20,
-      "cosmicIce": 10
-    },
-    "building": "smelting"
+    "needed": {
+      "ambercharger": 20,
+      "cosmicice": 10
+    }
   },
-  "copperKnive": {
-    "value": 300,
-    "time": 120,
+  "plasticplate": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 40000,
     "quantity": 1,
-    "required": {
-      "copperBar": 1,
+    "needed": {
+      "greenlaser": 1,
+      "coal": 50,
+      "refinedoil": 1
+    }
+  },
+  "aluminium": {
+    "type": "raw",
+    "building": "",
+    "value": 5,
+    "quantity": 0,
+    "needed": {}
+  },
+  "gold": {
+    "type": "raw",
+    "building": "",
+    "value": 10,
+    "quantity": 0,
+    "needed": {}
+  },
+  "oil": {
+    "type": "raw",
+    "building": "",
+    "value": 21,
+    "quantity": 0,
+    "needed": {}
+  },
+  "redberyl": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "helium3": {
+    "type": "raw",
+    "building": "",
+    "value": 400,
+    "quantity": 0,
+    "needed": {}
+  },
+  "winterfesttoy": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "winterfestglobe": {
+    "type": "crafted",
+    "building": "jewel",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "magicbox": {
+    "type": "crafted",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "candybatch": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 350,
+    "quantity": 1,
+    "needed": {
+      "greencandy": 3,
+      "yellowcandy": 3,
+      "redcandy": 3
+    }
+  },
+  "sockofcandies": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 3000,
+    "quantity": 1,
+    "needed": {
+      "candybatch": 2,
+      "wintersock": 1
+    }
+  },
+  "wintersock": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 600,
+    "quantity": 1,
+    "needed": {
+      "magicbox": 1,
+      "graphite": 10,
+      "candybatch": 1
+    }
+  },
+  "purplegift": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "greencandy": 300,
+      "magicbox": 1
+    }
+  },
+  "yellowgift": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "yellowcandy": 300,
+      "magicbox": 1
+    }
+  },
+  "crimsongift": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "redcandy": 300,
+      "magicbox": 1
+    }
+  },
+  "greencandy": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "yellowcandy": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "silver": {
+    "type": "raw",
+    "building": "",
+    "value": 7,
+    "quantity": 0,
+    "needed": {}
+  },
+  "redcandy": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "copperknive": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 300,
+    "quantity": 1,
+    "needed": {
+      "copperbar": 1,
       "pumpkin": 1
-    },
-    "building": "crafting"
+    }
+  },
+  "defectivepumpkin": {
+    "type": "crafted",
+    "building": "",
+    "value": 100,
+    "quantity": 0,
+    "needed": {}
+  },
+  "carvedpumkin": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 1100,
+    "quantity": 1,
+    "needed": {
+      "copperknive": 1,
+      "pumpkin": 1
+    }
+  },
+  "pumpkin": {
+    "type": "raw",
+    "building": "",
+    "value": 50,
+    "quantity": 0,
+    "needed": {}
+  },
+  "obsidian": {
+    "type": "raw",
+    "building": "",
+    "value": 20,
+    "quantity": 0,
+    "needed": {}
+  },
+  "amethyst": {
+    "type": "raw",
+    "building": "",
+    "value": 18,
+    "quantity": 0,
+    "needed": {}
+  },
+  "titaniumore": {
+    "type": "raw",
+    "building": "",
+    "value": 19,
+    "quantity": 0,
+    "needed": {}
+  },
+  "alexandrite": {
+    "type": "raw",
+    "building": "",
+    "value": 19,
+    "quantity": 0,
+    "needed": {}
+  },
+  "ruby": {
+    "type": "raw",
+    "building": "",
+    "value": 15,
+    "quantity": 0,
+    "needed": {}
+  },
+  "sapphire": {
+    "type": "raw",
+    "building": "",
+    "value": 16,
+    "quantity": 0,
+    "needed": {}
+  },
+  "diamond": {
+    "type": "raw",
+    "building": "",
+    "value": 18,
+    "quantity": 0,
+    "needed": {}
+  },
+  "topaz": {
+    "type": "raw",
+    "building": "",
+    "value": 14,
+    "quantity": 0,
+    "needed": {}
+  },
+  "platinum": {
+    "type": "raw",
+    "building": "",
+    "value": 13,
+    "quantity": 0,
+    "needed": {}
+  },
+  "emerald": {
+    "type": "raw",
+    "building": "",
+    "value": 12,
+    "quantity": 0,
+    "needed": {}
+  },
+  "megapumpkin": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "stageiwinglet": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "sasmodule": {
+    "type": "quest",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "electroniccomponents": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "solarpanel": 65
+    }
+  },
+  "rocketengine": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "nozzleii": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "nozzleil": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "nozzleir": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "nozzleic": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "decoupleriii": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "decouplerii": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "decoupleri": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "maincapsule": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "stageiiwinglet": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "steelplate": 777
+    }
+  },
+  "stageiii": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "rocketles": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "node": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "engineil": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "engineir": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "engineic": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "rubber": 25,
+      "diamondcutter": 310
+    }
+  },
+  "stagei": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "dryice": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 140000,
+    "quantity": 1,
+    "needed": {}
+  },
+  "magnet": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 300000,
+    "quantity": 1,
+    "needed": {
+      "magnetitebar": 1
+    }
+  },
+  "electricalengine": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 745000,
+    "quantity": 1,
+    "needed": {
+      "insulatedwire": 50,
+      "magnet": 1,
+      "aluminiumbar": 20
+    }
+  },
+  "magnetitebar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 137000,
+    "quantity": 1,
+    "needed": {
+      "magnetiteore": 5
+    }
+  },
+  "magnetiteore": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 12500,
+    "quantity": 1,
+    "needed": {
+      "oxygen": 5,
+      "ironbar": 10,
+      "greenlaser": 5
+    }
+  },
+  "enhancedhelium3": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 190000,
+    "quantity": 1,
+    "needed": {
+      "aluminiumbottle": 1
+    }
+  },
+  "stageii": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {}
+  },
+  "toxicbomb": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 77500,
+    "quantity": 10,
+    "needed": {
+      "sulfuricacid": 10
+    }
+  },
+  "hydrochloricacid": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 12000,
+    "quantity": 4,
+    "needed": {
+      "sulfuricacid": 1,
+      "sodiumchloride": 20
+    }
+  },
+  "rockettypea": {
+    "type": "crafted",
+    "building": "",
+    "value": 100,
+    "quantity": 0,
+    "needed": {}
+  },
+  "chipset": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 40000,
+    "quantity": 1,
+    "needed": {
+      "silverbar": 1,
+      "hydrochloricacid": 1,
+      "circuits": 3
+    }
+  },
+  "shardsofeternity": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofeternity": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "sulfur": 100,
+      "rubber": 3,
+      "shardsofeternity": 100
+    }
+  },
+  "shardsofradiation": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofradiation": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "sulfur": 100,
+      "rubber": 3,
+      "shardsofradiation": 100
+    }
+  },
+  "shardsofentropy": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofentropy": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "sulfur": 100,
+      "rubber": 3,
+      "shardsofentropy": 100
+    }
+  },
+  "shardsofempathy": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofempathy": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "sulfur": 100,
+      "rubber": 3,
+      "shardsofempathy": 100
+    }
+  },
+  "shardsofshine": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofshine": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "rubber": 3,
+      "shardsofshine": 100,
+      "sulfur": 100
+    }
+  },
+  "shardsofmistakes": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofmistakes": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "sulfur": 100,
+      "rubber": 3,
+      "shardsofmistakes": 100
+    }
+  },
+  "shardsofkindness": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofkindness": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "sulfur": 100,
+      "rubber": 3,
+      "shardsofkindness": 100
+    }
+  },
+  "shardsofstrength": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofstrength": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "shardsofstrength": 100,
+      "sulfur": 100,
+      "rubber": 3
+    }
+  },
+  "shardsofwisdom": {
+    "type": "raw",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
+  },
+  "stoneofwisdom": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "shardsofwisdom": 100,
+      "rubber": 3,
+      "sulfur": 100
+    }
+  },
+  "researchbeam": {
+    "type": "quest",
+    "building": "crafting",
+    "value": 0,
+    "quantity": 1,
+    "needed": {
+      "accumulator": 100,
+      "chipset": 50,
+      "lutetiumbar": 40
+    }
+  },
+  "lutetiumbar": {
+    "type": "crafted",
+    "building": "smelting",
+    "value": 68000,
+    "quantity": 1,
+    "needed": {
+      "lutetium": 5
+    }
+  },
+  "zipdrive": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 2200,
+    "quantity": 1,
+    "needed": {
+      "circuits": 1,
+      "magicbox": 1
+    }
+  },
+  "lutetium": {
+    "type": "chemical",
+    "building": "chemistry",
+    "value": 13500,
+    "quantity": 1,
+    "needed": {
+      "sulfuricacid": 1,
+      "lutetiumore": 20
+    }
+  },
+  "cosmicice": {
+    "type": "raw",
+    "building": "",
+    "value": 100,
+    "quantity": 0,
+    "needed": {}
+  },
+  "sodiumchloride": {
+    "type": "raw",
+    "building": "",
+    "value": 100,
+    "quantity": 0,
+    "needed": {}
+  },
+  "lutetiumore": {
+    "type": "raw",
+    "building": "",
+    "value": 500,
+    "quantity": 0,
+    "needed": {}
+  },
+  "rockettypeb": {
+    "type": "crafted",
+    "building": "crafting",
+    "value": 100,
+    "quantity": 1,
+    "needed": {
+      "titaniumbar": 10,
+      "insulatedwire": 100,
+      "moonstone": 1
+    }
+  },
+  "honorbadge": {
+    "type": "crafted",
+    "building": "",
+    "value": 0,
+    "quantity": 0,
+    "needed": {}
   }
 }
