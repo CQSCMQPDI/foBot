@@ -1,11 +1,24 @@
+import os
+
+
 class MainClass:
     name = "pi"
 
     def __init__(self, guild):
         self.guild = guild
+        self.pi_file = "D:\\Users\\louis chauvet\\Documents\\GitHub\\foBot\\modules\\pi\\pi1.txt"
 
     async def pi(self, msg, command, args):
-        pass
+        start=0
+        if len(args) == 1:
+            try:
+                start = int(args[0])
+            except ValueError:
+                await msg.channel.send("Vous devez spwcifier un nombre imferieur a 100000")
+        with open(self.pi_file) as pi_file:
+            pi_file.read(start)
+            txt = pi_file.read(1900)
+            await msg.channel.send("3."+txt)
 
     async def pi_search(self, msg, command, args):
         pass
@@ -14,5 +27,5 @@ class MainClass:
         if msg.content.startswith(self.guild.config["prefix"]):
             command, *args = msg.content.lstrip(self.guild.config["prefix"]).split(" ")
             if command == "pi":
-                self.pi(msg, command, args)
+                await self.pi(msg, command, args)
         return
