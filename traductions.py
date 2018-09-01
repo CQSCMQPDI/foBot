@@ -147,6 +147,9 @@ tr = {
                                "du bot.",
             "CommandNotFoundError": "La commande {command} n'existe pas.",
             "TooBigNumberPiError": "Vous devez spécifier un nombre inferieur a 10000.",
+            "RegexError": "La regex que vous avez utilisé n'est pas valide.",
+            "ForbiddenRegexError": "Vous n'avez pas le droit d'utiliser les caractères `*` et `+` dans une regex.",
+            "RegexTooLongError": "La regex ne doit pas faire plus e 50 caractères",
         },
     },
 }
