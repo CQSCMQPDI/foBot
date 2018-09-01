@@ -1,0 +1,29 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "0b00547c8080ca98592603203321ca0aa4c3be1d1d1d0d69ac0fb28b78619350"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.7"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "discord.py": {
+            "git": "https://github.com/Rapptz/discord.py",
+            "ref": "00a659c6526b2445162b52eaf970adbd22c6d35d"
+        },
+        "fs.dropboxfs": {
+            "git": "https://github.com/rkhwaja/fs.dropboxfs.git",
+            "ref": "68988a25143a8ea760bc6dfb2a715f6f98ac31c7"
+        }
+    },
+    "develop": {}
+}
