@@ -106,6 +106,19 @@ tr = {
                     },
                 },
             },
+            "pi": {
+                "description": "Commandes relatives au nombre pi",
+                "help": {
+                    "pi": {
+                        "description": "Donne 2000 décimales de pi.",
+                        "examples": [
+                            ("`(prefix}pi`", "Affiche les 2000 premières décimales de pi."),
+                            ("`{prefix}pi 2000`", "Affiche 2000 décimales de pi à partir de la 2000ème"),
+                        ],
+                    },
+                },
+                "pi": "Voici les 2000 décimales de pi que vous avez demandé (à partir de la {debut}ème):",
+            },
         },
         "errors": {
             "LangNotFoundError": "La langue {lang} est introuvable, tapez {prefix}list_lang pour voir les langues "
@@ -132,7 +145,8 @@ tr = {
             "NotEnoughParamError": "Il manque un ou plusieurs parametres à la commande.",
             "NoMentionsError": "Vous devez mentioner un utilisateur pour le rajouter à la liste des administrateurs "
                                "du bot.",
-            "CommandNotFoundError": "La commande {command} n'existe pas."
+            "CommandNotFoundError": "La commande {command} n'existe pas.",
+            "TooBigNumberPiError": "Vous devez spécifier un nombre inferieur a 10000.",
         },
     },
 }
