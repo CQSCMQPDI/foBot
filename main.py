@@ -81,6 +81,7 @@ class Guild:
         self.modules = []
         self.load_config()
         self.update_modules()
+        self.save_config()
 
     def load_config(self):
         if self.bot.fileSystem.exists(self.config_file):
@@ -210,6 +211,11 @@ class FoBot(discord.Client):
 
     async def on_resumed(self):
         info("foBot is resumed.")
+
+    async def on_guild_join(self, guild):
+        self.load_modules()
+        self.load_config()
+        self.save_config()
 
     async def on_error(self, event, *args, **kwargs):
         error("foBot encounter an error.", exc_info=True)
