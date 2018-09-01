@@ -11,7 +11,7 @@ class MainClass:
 
     def __init__(self, guild):
         self.guild = guild
-        self.pi_file = "pi/pi1.txt"
+        self.pi_file = "/pi/pi1.txt"
         self.piFileError = False
         try:
             self.guild.bot.fileSystem.open(self.pi_file).close()
@@ -30,7 +30,7 @@ class MainClass:
             if start > 1000000-2000:
                 await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["TooBigNumberPiError"])
                 return
-            with open(self.pi_file) as pi_file:
+            with self.guild.bot.fileSystem.open(self.pi_file) as pi_file:
                 pi_file.read(start)
                 txt = pi_file.read(2000)
                 await msg.channel.send(tr.tr[self.guild.config["lang"]]["modules"]["pi"]["pi"].format(debut=start))
