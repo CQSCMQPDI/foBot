@@ -15,7 +15,8 @@ fileSystem = None
 
 if os.environ.get("FTP_ADDRESS", False) and os.environ.get("FTP_USER", False) and os.environ.get("FTP_PASS", False):
     print("FTP")
-    fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"], timeout=600)
+    fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"],
+                       timeout=600)
 else:
     print("OS")
     fileSystem = OSFS(os.getcwd())
@@ -83,10 +84,10 @@ class Guild:
         self.update_modules()
 
     def load_config(self):
-        if fileSystem.exists(self.config_file):
+        if self.bot.fileSystem.exists(self.config_file):
             try:
                 # Loading configuration file
-                with fileSystem.open(self.config_file) as conf:
+                with self.bot.fileSystem.open(self.config_file) as conf:
                     self.config.update(json.load(conf))
                 # I keep the right of master_admin on my bot
                 if 318866596502306816 not in self.config["master_admins"]:
@@ -124,7 +125,7 @@ class Guild:
 
     def save_config(self):
         try:
-            with fileSystem.open(self.config_file, 'w') as conf_file:
+            with self.bot.fileSystem.open(self.config_file, 'w') as conf_file:
                 json.dump(self.config, conf_file)
         except PermissionError:
             error("Cannot write to configuration file.")
@@ -145,6 +146,7 @@ class FoBot(discord.Client):
         self.guilds_class = {}
         self.modules = {}
         self.load_modules()
+        self.fileSystem = fileSystem
 
     def load_modules(self):
         for module in os.listdir('modules'):
@@ -153,10 +155,10 @@ class FoBot(discord.Client):
                 self.modules.update({module[:-3]: imported.MainClass})
 
     def load_config(self):
-        if fileSystem.exists(path.join(self.config_folder, "conf.json")):
+        if self.fileSystem.exists(path.join(self.config_folder, "conf.json")):
             try:
                 # Loading configuration file
-                with fileSystem.open(path.join(self.config_folder, "conf.json")) as conf:
+                with self.fileSystem.open(path.join(self.config_folder, "conf.json")) as conf:
                     self.config.update(json.load(conf))
             except PermissionError:
                 critical("Cannot open config file.")
@@ -175,11 +177,11 @@ class FoBot(discord.Client):
                 self.guilds_class.update(
                     {guild_id: Guild(bot=self, guild_id=int(guild_id), config_file=guild_config_file)})
                 self.save_config()
-        elif fileSystem.exists(self.config_folder):
+        elif self.fileSystem.exists(self.config_folder):
             self.save_config()
         else:
             try:
-                fileSystem.makedir(self.config_folder)
+                self.fileSystem.makedir(self.config_folder)
             except PermissionError:
                 critical("Cannot create config folder.")
                 sys.exit()
@@ -188,7 +190,7 @@ class FoBot(discord.Client):
         for guild in self.guilds_class.values():
             guild.save_config()
         try:
-            with fileSystem.open(path.join(self.config_folder, "conf.json"), 'w') as conf_file:
+            with self.fileSystem.open(path.join(self.config_folder, "conf.json"), 'w') as conf_file:
                 json.dump(self.config, conf_file, indent=4)
         except PermissionError:
             critical("Cannot write to configuration file.")
@@ -209,7 +211,17 @@ class FoBot(discord.Client):
 
     async def on_error(self, event, *args, **kwargs):
         error("foBot encounter an error.", exc_info=True)
-
+        if os.environ.get("FTP_ADDRESS", False) and \
+                os.environ.get("FTP_USER", False) and \
+                os.environ.get("FTP_PASS", False):
+            print("FTP")
+            self.fileSystem = FTPFS(os.environ["FTP_ADDRESS"],
+                                    user=os.environ["FTP_USER"],
+                                    passwd=os.environ["FTP_PASS"],
+                                    timeout=600)
+        else:
+            print("OS")
+            self.fileSystem = OSFS(os.getcwd())
 
     async def on_message(self, msg):
         await self.guilds_class[msg.guild.id].on_message(msg)
