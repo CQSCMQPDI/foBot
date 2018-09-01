@@ -7,16 +7,15 @@ import os
 import sys
 
 import discord
-from fs.ftpfs import FTPFS
+from fs.dropboxfs import DropboxFS
 from fs.osfs import OSFS
 from fs import path
 
 fileSystem = None
 
-if os.environ.get("FTP_ADDRESS", False) and os.environ.get("FTP_USER", False) and os.environ.get("FTP_PASS", False):
+if os.environ.get("DROPBOX_ACCESS_TOKEN", False):
     print("FTP")
-    fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"],
-                       timeout=600)
+    fileSystem = DropboxFS(os.environ["DROPBOX_ACCESS_TOKEN"])
 else:
     print("OS")
     fileSystem = OSFS(os.getcwd())
@@ -82,6 +81,7 @@ class Guild:
         self.modules = []
         self.load_config()
         self.update_modules()
+        self.save_config()
 
     def load_config(self):
         if self.bot.fileSystem.exists(self.config_file):
@@ -109,6 +109,9 @@ class Guild:
         if "help" not in self.config["modules"]:
             self.config["modules"].append("help")
         module_to_load = list(set(self.config["modules"]))
+
+        self.config["modules"] = module_to_load
+        self.save_config()
 
         for module in module_to_load:
             # Try to load all modules by name
@@ -139,7 +142,7 @@ class Guild:
 
 class FoBot(discord.Client):
 
-    def __init__(self, config='foBot_config', *args, **kwargs):
+    def __init__(self, config='/foBot_config', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config_folder = config
         self.config = {"guilds": {}}
@@ -209,16 +212,16 @@ class FoBot(discord.Client):
     async def on_resumed(self):
         info("foBot is resumed.")
 
+    async def on_guild_join(self, guild):
+        self.load_modules()
+        self.load_config()
+        self.save_config()
+
     async def on_error(self, event, *args, **kwargs):
         error("foBot encounter an error.", exc_info=True)
-        if os.environ.get("FTP_ADDRESS", False) and \
-                os.environ.get("FTP_USER", False) and \
-                os.environ.get("FTP_PASS", False):
+        if os.environ.get("DROPBOX_ACCESS_TOKEN", False):
             print("FTP")
-            self.fileSystem = FTPFS(os.environ["FTP_ADDRESS"],
-                                    user=os.environ["FTP_USER"],
-                                    passwd=os.environ["FTP_PASS"],
-                                    timeout=600)
+            self.fileSystem = DropboxFS(os.environ["DROPBOX_ACCESS_TOKEN"])
         else:
             print("OS")
             self.fileSystem = OSFS(os.getcwd())
