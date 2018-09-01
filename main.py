@@ -141,7 +141,7 @@ class Guild:
 
 class FoBot(discord.Client):
 
-    def __init__(self, config='foBot_config', *args, **kwargs):
+    def __init__(self, config='/foBot_config', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config_folder = config
         self.config = {"guilds": {}}
