@@ -11,12 +11,9 @@ class MainClass:
 
     def __init__(self, guild):
         self.guild = guild
-        self.pi_file = "/pi/pi1.txt"
+        self.pi_file = "modules/pi/pi1.txt"
         self.piFileError = False
-        try:
-            self.guild.bot.fileSystem.open(self.pi_file).close()
-        except fs.errors.ResourceNotFound:
-            self.piFileError = True
+
 
     async def pi(self, msg, command, args):
         if not self.piFileError:
@@ -30,7 +27,7 @@ class MainClass:
             if start > 1000000-2000:
                 await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["TooBigNumberPiError"])
                 return
-            with self.guild.bot.fileSystem.open(self.pi_file) as pi_file:
+            with open(self.pi_file) as pi_file:
                 pi_file.read(start)
                 txt = pi_file.read(2000)
                 await msg.channel.send(tr.tr[self.guild.config["lang"]]["modules"]["pi"]["pi"].format(debut=start))
@@ -55,7 +52,7 @@ class MainClass:
             except re.error:
                 await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["RegexError"])
                 return
-            with self.guild.bot.fileSystem.open(self.pi_file) as pi_file:
+            with open(self.pi_file) as pi_file:
                 pi = pi_file.readline()
                 results = to_search.finditer(pi)
                 texts = []

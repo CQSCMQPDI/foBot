@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 "fs.dropboxfs" = {git = "https://github.com/rkhwaja/fs.dropboxfs.git"}
 "discord.py" = {ref = "rewrite", git = "https://github.com/Rapptz/discord.py"}
+mysql-connector-python = "*"
+pymysql = "*"
 
 [dev-packages]
 
