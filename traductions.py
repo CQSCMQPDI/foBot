@@ -119,6 +119,21 @@ tr = {
                 },
                 "pi": "Voici les 2000 décimales de pi que vous avez demandé (à partir de la {debut}ème):",
             },
+            "tools": {
+                "description": "Commandes utiles",
+                "help": {
+                    "ping": {
+                        "description": "Renvoie le temps de réponse du bot",
+                        "examples": [
+                            ("`{prefix}ping`", "Affiche le temps de réponse du bot"),
+                        ],
+                    },
+                },
+                "ping": {
+                    "title": "Pong!"
+
+                }
+            },
         },
         "errors": {
             "LangNotFoundError": "La langue {lang} est introuvable, tapez {prefix}list_lang pour voir les langues "
