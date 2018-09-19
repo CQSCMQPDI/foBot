@@ -119,6 +119,19 @@ tr = {
                 },
                 "pi": "Voici les 2000 décimales de pi que vous avez demandé (à partir de la {debut}ème):",
             },
+            "github": {
+                "description": "Commands relatives à discord",
+                "help": {
+                    "sourcecode": {
+                        "description": "Donne un lien vers mon code source (il est là comme ca tu a pas retapper la \
+commande :smile: https://github.com/Fomys/foBot",
+                        "examples":[
+                            ("`prefix`sourcecode", "Affiche mon code source")
+                        ]
+                    },
+                },
+                "sourcecode":"Mon code source est disponible sur github: https://github.com/Fomys/foBot",
+            },
             "tools": {
                 "description": "Commandes utiles",
                 "help": {
