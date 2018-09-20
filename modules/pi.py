@@ -58,7 +58,7 @@ class MainClass:
                 texts = []
                 for result in results:
                     texts.append(
-                        "Une occurence de votre recherche a été trouvée à la {debut}ème place: `{before}`{find}`{after}`".format(
+                        tr.tr[self.guild.config["lang"]]["modules"]["pi"]["fpi"].format(
                             debut=result.start(0),
                             before=pi[result.start(0) - 10:result.start(0)],
                             find=pi[result.start(0):result.end(0)],

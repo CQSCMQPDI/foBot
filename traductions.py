@@ -115,9 +115,16 @@ tr = {
                             ("`(prefix}pi`", "Affiche les 2000 premières décimales de pi."),
                             ("`{prefix}pi 2000`", "Affiche 2000 décimales de pi à partir de la 2000ème"),
                         ],
+                    },"fpi": {
+                        "description": "Recherche l'expression régulière dans pi",
+                        "examples": [
+                            ("`{prefix}fpi 12345`", "Affiche les 10 premières occurences de 12345 dans pi"),
+                            ("`{prefix}fpi 20?2?1`", "Affiche les 10 premières occurences de 21, 201, 221 et 2021")
+                        ],
                     },
                 },
                 "pi": "Voici les 2000 décimales de pi que vous avez demandé (à partir de la {debut}ème):",
+                "fpi": "Une occurence de votre recherche a été trouvée à la {debut}ème place: `{before}`{find}`{after}`",
             },
             "github": {
                 "description": "Commands relatives à discord",
