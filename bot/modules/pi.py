@@ -1,9 +1,6 @@
-import os
 import re
 
-import fs
-
-import traductions as tr
+from bot import traductions as tr
 
 
 class MainClass:

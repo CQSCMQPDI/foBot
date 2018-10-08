@@ -1,0 +1,30 @@
+{% extends "..\base.html" %}
+
+{% block body %}
+    {% if user.author %}
+        <form action="{{ request.path }}" method="post" onsubmit="return validateForm()" class="compose">
+            <div style="margin-bottom:5px">
+                <input name="title" type="text" class="title" value="{{ entry.title if entry else "" }}" required/>
+            </div>
+            <div style="margin-bottom:5px">
+                    <textarea name="markdown" rows="30" cols="40" class="markdown" required>
+                        {{ entry.markdown if entry else "" }}
+                    </textarea>
+            </div>
+            <div>
+                <input type="submit" value="{{ _("Save changes") if entry else _("Publish post") }}" class="submit"/>
+                &nbsp;<a href="{{ "/blog/entry/" + entry.slug if entry else "/" }}">{{ _("Cancel") }}</a>
+            </div>
+            {% if entry %}
+                <input type="hidden" name="id" value="{{ entry.id }}"/>
+            {% end %}
+            {% module xsrf_form_html() %}
+        </form>
+    {% else %}
+        <p style="color: red">You don't have right to edit or create post</p>
+    {% end %}
+{% end %}
+
+{% block bottom %}
+
+{% end %}

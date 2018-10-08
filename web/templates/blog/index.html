@@ -1,0 +1,17 @@
+{% extends "../base.html" %}
+
+{% block title %} {{ escape(handler.settings["website_title"]) }}  - Blog{% end %}
+
+{% block body %}
+{% for entry in entries %}
+<div class="entry">
+    <h1><a href="/blog/entry/{{ entry.slug }}">{{ entry.title }}</a></h1>
+    <div class="date">{{ locale.format_date(entry.published, full_format=True, shorter=True) }}</div>
+    <div class="body">{% raw entry.html %}</div>
+    {% if current_user and current_user.author %}
+        <div class="admin"><a href="/blog/compose?id={{ entry.id }}">{{ _("Editer le post") }}</a></div>
+    {% end %}
+</div>
+{% end %}
+<div><a href="/blog/archive">{{ _("Archive") }}</a></div>
+{% end %}

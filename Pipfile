@@ -8,6 +8,9 @@ name = "pypi"
 "discord.py" = {ref = "rewrite", git = "https://github.com/Rapptz/discord.py"}
 mysql-connector-python = "*"
 pymysql = "*"
+tornado = "*"
+bcrypt = "*"
+markdown = "*"
 
 [dev-packages]
 

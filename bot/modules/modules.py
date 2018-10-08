@@ -1,5 +1,5 @@
 import discord
-import traductions as tr
+from bot import traductions as tr
 
 
 class MainClass:

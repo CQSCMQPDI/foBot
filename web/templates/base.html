@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Website title -->
+    <title>{% block title %} {{ escape(handler.settings["website_title"]) }} {% end %}</title>
+    <link rel="stylesheet" href="{{ static_url("base.css") }}" type="text/css">
+    {% block head %}{% end %}
+</head>
+<body>
+<div id="body">
+    <div id="header">
+        <div style="float:right">
+            <a href="/blog">{{ _("Blog") }}</a>
+            {% if current_user %}
+                <a href="/bot/configure">{{ _("Configure") }}</a>
+                <a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("Sign out") }}</a>
+                {% if current_user.author %}
+                    <a href="/blog/compose">{{ _("Compose") }}</a>
+                {% end %}
+            {% else %}
+                <a href="/auth/login?next={{ url_escape(request.uri) }}">{{ _("Sign in") }}</a> or <a href="/auth/create?next={{ url_escape(request.uri) }}">{{ _("create account") }}</a> to configure your bot.
+            {% end %}
+        </div>
+        <h1><a href="/">{% block title %}{{ escape(handler.settings["website_title"]) }}{% end %}</a></h1>
+    </div>
+    <div id="content">{% block body %}{% end %}</div>
+</div>
+{% block bottom %}{% end %}
+</body>
+</html>

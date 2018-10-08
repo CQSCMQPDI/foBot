@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titre }}</title>
+</head>
+<body>
+    {% for msg in messages %}
+        <div>
+            <h3>{{ msg.author.name }}</h3>
+            <p>{{ escape(msg.content) }}</p>
+        </div>
+    {% end %}
+</body>
+</html>
