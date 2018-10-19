@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+"fs.dropboxfs" = {git = "https://github.com/rkhwaja/fs.dropboxfs.git"}
+"discord.py" = {ref = "rewrite", git = "https://github.com/Rapptz/discord.py"}
+mysql-connector-python = "*"
+pymysql = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"

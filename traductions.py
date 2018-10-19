@@ -141,6 +141,54 @@ tr = {
                     },
                 },
             },
+            "pi": {
+                "description": "Commandes relatives au nombre pi",
+                "help": {
+                    "pi": {
+                        "description": "Donne 2000 décimales de pi.",
+                        "examples": [
+                            ("`(prefix}pi`", "Affiche les 2000 premières décimales de pi."),
+                            ("`{prefix}pi 2000`", "Affiche 2000 décimales de pi à partir de la 2000ème"),
+                        ],
+                    },"fpi": {
+                        "description": "Recherche l'expression régulière dans pi",
+                        "examples": [
+                            ("`{prefix}fpi 12345`", "Affiche les 10 premières occurences de 12345 dans pi"),
+                            ("`{prefix}fpi 20?2?1`", "Affiche les 10 premières occurences de 21, 201, 221 et 2021")
+                        ],
+                    },
+                },
+                "pi": "Voici les 2000 décimales de pi que vous avez demandé (à partir de la {debut}ème):",
+                "fpi": "Une occurence de votre recherche a été trouvée à la {debut}ème place: `{before}`{find}`{after}`",
+            },
+            "github": {
+                "description": "Commands relatives à discord",
+                "help": {
+                    "sourcecode": {
+                        "description": "Donne un lien vers mon code source (il est là comme ca tu a pas retapper la \
+commande :smile: https://github.com/Fomys/foBot",
+                        "examples":[
+                            ("`prefix`sourcecode", "Affiche mon code source")
+                        ]
+                    },
+                },
+                "sourcecode":"Mon code source est disponible sur github: https://github.com/Fomys/foBot",
+            },
+            "tools": {
+                "description": "Commandes utiles",
+                "help": {
+                    "ping": {
+                        "description": "Renvoie le temps de réponse du bot",
+                        "examples": [
+                            ("`{prefix}ping`", "Affiche le temps de réponse du bot"),
+                        ],
+                    },
+                },
+                "ping": {
+                    "title": "Pong!"
+
+                }
+            },
         },
         "errors": {
             "LangNotFoundError": "La langue {lang} est introuvable, tapez {prefix}list_lang pour voir les langues "
@@ -170,7 +218,12 @@ tr = {
             "OreNotFoundError": "{ore} n'est pas un minerais valide.",
             "NotIntError": "{number} n'est pas un nombre entier valide.",
             "ItemNotFoundError": "{item} n'extiste pas dans deeptown",
-            "CommandNotFoundError": "La commande {command} n'existe pas."
+            "CommandNotFoundError": "La commande {command} n'existe pas.",
+            "TooBigNumberPiError": "Vous devez spécifier un nombre inferieur a 1000000.",
+            "RegexError": "La regex que vous avez utilisé n'est pas valide.",
+            "ForbiddenRegexError": "Vous n'avez pas le droit d'utiliser les caractères `*` et `+` dans une regex.",
+            "RegexTooLongError": "La regex ne doit pas faire plus e 50 caractères",
+            "PiFileError": "Les décimales de pi sont indisponibles, veuillez réessayer plus tard...",
         },
     },
 }

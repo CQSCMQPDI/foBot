@@ -1,24 +1,27 @@
-import ftplib
 import importlib
 import json
 import logging
 import logging.config
-import os
-import sys
-
+import re
 import discord
-from fs.ftpfs import FTPFS
-from fs.osfs import OSFS
-from fs import path
 
-fileSystem = None
+import pymysql as mariadb
 
-if os.environ.get("FTP_ADDRESS", False) and os.environ.get("FTP_USER", False) and os.environ.get("FTP_PASS", False):
-    print("FTP")
-    fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"], timeout=600)
-else:
-    print("OS")
-    fileSystem = OSFS(os.getcwd())
+import os
+
+# Setup database
+db_connection = mariadb.connect(host='127.0.0.1',
+                                port=3307,
+                                user=os.environ['FOBOT_DATABASE_USER'],
+                                password=os.environ['FOBOT_DATABASE_PASSWORD'],
+                                db='fobot',
+                                charset='utf8mb4',
+                                cursorclass=mariadb.cursors.DictCursor)
+
+
+def to_str(entier):
+    return str(entier).replace("1", "a").replace("2", "b").replace("3", "c").replace("4", "d").replace("5", "e") \
+        .replace("6", "f").replace("7", "g").replace("8", "h").replace("9", "i").replace("0", "j")
 
 
 # json decoder for int keys
@@ -69,10 +72,9 @@ critical = log_foBot.critical
 
 
 class Guild:
-    def __init__(self, bot, guild_id, config_file):
+    def __init__(self, bot, guild_id):
         self.id = guild_id
         self.bot = bot
-        self.config_file = config_file
         self.config = {"modules": ["modules"],
                        "prefix": "§",
                        "master_admins": [318866596502306816],
@@ -81,24 +83,42 @@ class Guild:
         self.modules = []
         self.load_config()
         self.update_modules()
+        self.save_config()
 
     def load_config(self):
-        if fileSystem.exists(self.config_file):
-            try:
-                # Loading configuration file
-                with fileSystem.open(self.config_file) as conf:
-                    self.config.update(json.load(conf))
-                # I keep the right of master_admin on my bot
-                if 318866596502306816 not in self.config["master_admins"]:
-                    self.config["master_admins"].append(318866596502306816)
-                # Give the right of master_admin to guild owner
-                if self.bot.get_guild(self.id) is not None:
-                    if self.bot.get_guild(self.id).owner.id not in self.config["master_admins"]:
-                        self.config["master_admins"].append(self.bot.get_guild(self.id).owner.id)
+        with self.bot.database.cursor() as cursor:
+            # Create guild table if it not exists
+            sql_create = """CREATE TABLE IF NOT EXISTS {guild_id} (
+                id int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                name varchar(50) NOT NULL,
+                content JSON CHECK (JSON_VALID(content))
+            );""".format(guild_id=to_str(self.id))
+            cursor.execute(sql_create)
+            # Load config row
+            sql_content = """SELECT id,name,content FROM {guild_id} WHERE name='config';""".format(
+                guild_id=to_str(self.id))
+            cursor.execute(sql_content)
+            result = cursor.fetchone()
+            if result is None:
+                sql_insert = """INSERT INTO {guild_id} (name) VALUES ('config');""".format(guild_id=to_str(self.id))
+                cursor.execute(sql_insert)
                 self.save_config()
+                # Refetch config
+                sql_content = """SELECT id,name,content FROM {guild_id} WHERE name='config';""".format(
+                    guild_id=to_str(self.id))
+                cursor.execute(sql_content)
+                result = cursor.fetchone()
 
-            except PermissionError:
-                error("Cannot open config file for server %s." % self.id)
+            self.config = json.loads(result['content'])
+            self.bot.database.commit()
+
+    def save_config(self):
+        with self.bot.database.cursor() as cursor:
+            sql = r"""UPDATE {guild_id} SET content='{configjson}' WHERE name='config';""".format(
+                guild_id=to_str(self.id),
+                configjson=re.escape(json.dumps(self.config)))
+            cursor.execute(sql)
+        self.bot.database.commit()
 
     def update_modules(self):
         self.modules = []
@@ -108,6 +128,9 @@ class Guild:
         if "help" not in self.config["modules"]:
             self.config["modules"].append("help")
         module_to_load = list(set(self.config["modules"]))
+
+        self.config["modules"] = module_to_load
+        self.save_config()
 
         for module in module_to_load:
             # Try to load all modules by name
@@ -122,29 +145,24 @@ class Guild:
                 self.modules.append(self.bot.modules[module](guild=self))
         return errors
 
-    def save_config(self):
-        try:
-            with fileSystem.open(self.config_file, 'w') as conf_file:
-                json.dump(self.config, conf_file)
-        except PermissionError:
-            error("Cannot write to configuration file.")
-
     async def on_message(self, msg):
         if not msg.author.bot:
             for module in self.modules:
                 await module.on_message(msg)
+            print(msg.content)
         return
 
 
 class FoBot(discord.Client):
 
-    def __init__(self, config='foBot_config', *args, **kwargs):
+    def __init__(self, config='/foBot_config', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config_folder = config
         self.config = {"guilds": {}}
         self.guilds_class = {}
         self.modules = {}
         self.load_modules()
+        self.database = db_connection
 
     def load_modules(self):
         for module in os.listdir('modules'):
@@ -153,46 +171,11 @@ class FoBot(discord.Client):
                 self.modules.update({module[:-3]: imported.MainClass})
 
     def load_config(self):
-        if fileSystem.exists(path.join(self.config_folder, "conf.json")):
-            try:
-                # Loading configuration file
-                with fileSystem.open(path.join(self.config_folder, "conf.json")) as conf:
-                    self.config.update(json.load(conf))
-            except PermissionError:
-                critical("Cannot open config file.")
-                sys.exit()
-            info("Configuration for foBot loaded. Check for new guilds.")
-            # Change all str key of guild into int ones
-            guilds = {int(k): v for k, v in self.config["guilds"].items()}
-            del self.config["guilds"]
-            self.config.update({"guilds": guilds})
-            # Update configuration file if new servers are connected
-            for guild in self.guilds:
-                if guild.id not in list(self.config["guilds"].keys()):
-                    self.config["guilds"].update(
-                        {guild.id: path.join(self.config_folder, str(guild.id) + ".json")})
-            for guild_id, guild_config_file in self.config["guilds"].items():
-                self.guilds_class.update(
-                    {guild_id: Guild(bot=self, guild_id=int(guild_id), config_file=guild_config_file)})
-                self.save_config()
-        elif fileSystem.exists(self.config_folder):
-            self.save_config()
-        else:
-            try:
-                fileSystem.makedir(self.config_folder)
-            except PermissionError:
-                critical("Cannot create config folder.")
-                sys.exit()
+        for guild in self.guilds:
+            self.guilds_class.update({guild.id: Guild(self, guild.id)})
 
     def save_config(self):
-        for guild in self.guilds_class.values():
-            guild.save_config()
-        try:
-            with fileSystem.open(path.join(self.config_folder, "conf.json"), 'w') as conf_file:
-                json.dump(self.config, conf_file, indent=4)
-        except PermissionError:
-            critical("Cannot write to configuration file.")
-            sys.exit()
+        pass
 
     async def on_connect(self):
         info("foBot is connected.")
@@ -207,13 +190,17 @@ class FoBot(discord.Client):
     async def on_resumed(self):
         info("foBot is resumed.")
 
+    async def on_guild_join(self, guild):
+        self.load_modules()
+        self.load_config()
+        self.save_config()
+
     async def on_error(self, event, *args, **kwargs):
         error("foBot encounter an error.", exc_info=True)
-
 
     async def on_message(self, msg):
         await self.guilds_class[msg.guild.id].on_message(msg)
 
 
 myBot = FoBot()
-myBot.run(os.environ.get("DISCORD_TOKEN", ""), max_messages=100000000)
+myBot.run(os.environ['DISCORD_TOKEN'], max_messages=100000000)

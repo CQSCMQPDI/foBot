@@ -108,3 +108,6 @@ venv.bak/
 
 # FoBot config
 foBot_config/*
+
+# Pi file (too big)
+modules/pi/pi.txt
