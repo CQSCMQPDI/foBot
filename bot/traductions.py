@@ -115,7 +115,7 @@ tr = {
                             ("`(prefix}pi`", "Affiche les 2000 premières décimales de pi."),
                             ("`{prefix}pi 2000`", "Affiche 2000 décimales de pi à partir de la 2000ème"),
                         ],
-                    },"fpi": {
+                    }, "fpi": {
                         "description": "Recherche l'expression régulière dans pi",
                         "examples": [
                             ("`{prefix}fpi 12345`", "Affiche les 10 premières occurences de 12345 dans pi"),
@@ -126,18 +126,75 @@ tr = {
                 "pi": "Voici les 2000 décimales de pi que vous avez demandé (à partir de la {debut}ème):",
                 "fpi": "Une occurence de votre recherche a été trouvée à la {debut}ème place: `{before}`{find}`{after}`",
             },
+            "avalon": {
+                "description": "Commandes relatives au jeu avalon",
+                "help": {
+                    "avalonstats": {
+                        "description": "Donne les stats du jeu avalon sur le serveur",
+                        "examples": [
+                            ("`{prefix}`avalonstats", "Affiche les stats des parties avalon du serveur"),
+                        ],
+                    },
+                    "avalonjoin": {
+                        "description": "Rejoindre la liste d'attente des joueurs pour avalon",
+                        "examples": [
+                            ("`{prefix}avalonjoin`", "Rejoindre la liste d'attente d'une partie avalon"),
+                        ],
+                    },
+                    "avalonstart": {
+                        "description": "Lancer la partie d'avalon",
+                        "examples": [
+                            ("`{prefix}`avalonstart", "Lance la partie d'avalon si il ya a assez de joueurs.")
+                        ]
+                    }
+                },
+                "avalonstats": "Depuis la création du jeu sur ce serveur {nb_games} parties de avalon ont étés jouées, "
+                               "les gentils ont gagnés {nb_victoire_gentil} et les méchants ont gagnés "
+                               "{nb_victoire_mechant}",
+                "avalonjoin": {
+                    "join": "<@{player_id}>, vous avec rejoint la partie avalon, il y a actuellement {nb_players} "
+                            "joueurs dans cette partie",
+                    "canplay": "Il y a maintenant assez de joueurs, tapez `{prefix}avalonstart` pour démarer la partie.",
+                    "alreadyplay": "Vous ne pouvez pas jouer à deux parties en même temps.",
+                    "alreadywaiting": "Vous attendez déja de pouvoir jouer",
+                },
+                "avalonquit": {
+                    "quit": "<@{player_id>, vous avez bien quitté la partie, il reste {nb_players} joueurs",
+                    "alreadyplaying": "<@{player_id}> vous êtes dans une partie déjà commencé, tous les joueurs de la "
+                                      "partie doivent quitter pour que la partie se termine."
+                },
+                "avalonstart": {
+                    "start": "La partie est lancée, avec {nb_joueurs}. Les roles {liste_roles} sont présents. Bonne "
+                             "partie!",
+                    "roles": {
+                        "gentil": "gentil",
+                        "mechant": "mechant",
+                        "merlin": "merlin",
+                        "assassin": "assassin",
+                        "mordred": "mordred",
+                        "perceval": "perceval",
+                        "morgane": "morgane",
+                        "oberon": "obéron"
+                    },
+                    "bienvenue": "Je vous souhaite à tous la bienvenue autour de cette table ronde, maleuresement au moins "
+                             "deux méchants sont présents. Leur but est de faire échouer trois quêtes du roi arthur, ou "
+                             "de refuser cinq écuipes de quêtes d'affilé. Le roi arthur va proposer cinq quêtes, vous "
+                             "devrez pour chacunes composer un équipe, la faire valider par les autres et réussir la "
+                             "quête."
+                },
+            },
             "github": {
                 "description": "Commands relatives à discord",
                 "help": {
                     "sourcecode": {
                         "description": "Donne un lien vers mon code source (il est là comme ca tu a pas retapper la \
 commande :smile: https://github.com/Fomys/foBot",
-                        "examples":[
-                            ("`prefix`sourcecode", "Affiche mon code source")
+                        "examples": [
+                            ("`{prefix}`sourcecode", "Affiche mon code source")
                         ]
                     },
                 },
-                "sourcecode":"Mon code source est disponible sur github: https://github.com/Fomys/foBot",
+                "sourcecode": "Mon code source est disponible sur github: https://github.com/Fomys/foBot",
             },
             "tools": {
                 "description": "Commandes utiles",
