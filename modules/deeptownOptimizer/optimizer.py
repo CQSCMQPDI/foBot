@@ -31,34 +31,38 @@ class Optimizer():
     def to_make(self, item, quantity=1):
         if item not in self.items.keys():
             raise ValueError("{item} is not a correct item.".format(item=item))
-        number_of_craft = int(quantity / self.items[item]["quantity"])
+        if self.items[item]["quantity"] != 0:
+            number_of_craft = int(quantity / self.items[item]["quantity"])
+        else:
+            number_of_craft = int(quantity)
         if number_of_craft % 1 != 0:
             number_of_craft = int((number_of_craft // 1) + 1)
         time = self.items[item]["time"] * number_of_craft
         value = self.items[item]["value"] * number_of_craft * self.items[item]["quantity"]
         needed = {}
-        for resource, quantity in self.items[item]["required"].items():
+        for resource, quantity in self.items[item]["needed"].items():
             needed.update({resource: quantity * number_of_craft})
         return {"time": time, "value": value, "needed": needed}
 
     def recursive_to_make(self, item, quantity=1):
         if item in self.items.keys():
             needed = self.to_make(item, quantity)
-            results = [(item, quantity, needed["time"])]
+            results = [(self.items[item]["type"], item, quantity, needed["time"])]
             for needed_item, needed_quantity in needed["needed"].items():
                 needed_result = self.recursive_to_make(needed_item, needed_quantity)
                 already_crafted = [result[0] for result in results]
                 index = 0
-                for i, q, t in needed_result:
+                for item_type, i, q, t in needed_result:
                     if i in already_crafted:
                         results[already_crafted.index(i)] = (
                             results[already_crafted.index(i)][0],
-                            results[already_crafted.index(i)][1] + q,
-                            results[already_crafted.index(i)][2] + t
+                            results[already_crafted.index(i)][1],
+                            results[already_crafted.index(i)][2] + q,
+                            results[already_crafted.index(i)][3] + t
                         )
                     else:
-                        results.append((i, q, t))
+                        results.append((item_type, i, q, t))
                     index += 1
             return results
         else:
-            return [(item, quantity, 0)]
+            return [(self.items[item]["type"], item, quantity, 0)]

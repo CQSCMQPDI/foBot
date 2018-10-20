@@ -5,6 +5,14 @@ import traductions as tr
 import modules.deeptownOptimizer.optimizer as optimizer
 
 
+item_type_priority = {
+    "quest":00,
+    "crafted":50,
+    "chemical":60,
+    'organic':70,
+    "raw":100,
+}
+
 class MainClass:
     name = "deeptown"
 
@@ -20,7 +28,7 @@ class MainClass:
             await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["NotEnoughParamError"])
             return
         if args[0] not in self.optimizer.mines["0"].keys():
-            await msg.channel.send(tr.tr[self.guild.config["lang"]]["error"]["OreNotFoundError"].format(ore=args[0]))
+            await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["OreNotFoundError"].format(ore=args[0]))
             return
         else:
             text = tr.tr[self.guild.config["lang"]]["modules"]["deeptown"]["best_place_mine"].format(ore=args[0])
@@ -84,10 +92,11 @@ class MainClass:
         needed = self.optimizer.recursive_to_make(args[0], quantity)
         texte = tr.tr[self.guild.config["lang"]]["modules"]["deeptown"]["recursive_to_make"]["header"] \
             .format(item=args[0], quantity=quantity)
+        needed.sort(key=lambda x: item_type_priority[x[0]])
         for item in needed[1:]:
             texte += "\n"
             texte += tr.tr[self.guild.config["lang"]]["modules"]["deeptown"]["recursive_to_make"]["line"] \
-                .format(item=item[0], quantity=item[1], time=datetime.timedelta(seconds=int(item[2])))
+                .format(item=item[1], quantity=item[2], time=datetime.timedelta(seconds=int(item[3])))
         texte += "```"
         await msg.channel.send(texte)
 

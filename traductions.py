@@ -116,7 +116,13 @@ tr = {
                             ("`{prefix}to_make_recursive copperNail 100`",
                              "Donne les resources pour faire 100 copperNail, càd 10 copperBar et 50 copper."),
                         ],
-
+                    },
+                    "reload_optimizer": {
+                        "description": "Recharge les quantités deressources nécessaires, réservé aux admins",
+                        "example": [
+                            ("`{prefix}reload_optimizer`", "Recharge les quantités de ressources nécessaires pour faire "
+                                                           "les différents items.")
+                        ]
                     }
                 },
                 "best_place_mine": "Voici les meilleurs emplacements pour le minerais {ore}\n```\n",
@@ -124,7 +130,7 @@ tr = {
                            "de la production est {value}.",
                 "recursive_to_make": {
                     "header": "Pour faire {quantity} {item} il vous faudra:\n```",
-                    "line": "{item:20} | {quantity} | {time}"
+                    "line": "{item:20} | {quantity:8} | {time}"
                 },
             },
             "help": {

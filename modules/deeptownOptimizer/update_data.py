@@ -1,27 +1,15 @@
+import json
 import os
-import random
-
-from fs.ftpfs import FTPFS
 from fs.osfs import OSFS
-from fs import path
 import re
 import requests
-import bs4
 
 fileSystem = None
-
-if os.environ.get("FTP_ADDRESS", False) and os.environ.get("FTP_USER", False) and os.environ.get("FTP_PASS", False):
-    print("FTP")
-    fileSystem = FTPFS(os.environ["FTP_ADDRESS"], user=os.environ["FTP_USER"], passwd=os.environ["FTP_PASS"],
-                       timeout=600)
-else:
-    print("OS")
-    fileSystem = OSFS(os.getcwd())
 
 
 def format_string(text):
     text = text.replace(" ", "").replace("-", "").replace("_", "").lower()
-    return text
+    return str(text)
 
 
 def get_all_item_urls():
@@ -41,6 +29,7 @@ def get_item_info(url):
               "building": None,
               "value": None,
               "quantity": 0,
+              "time": 0,
               "needed": {}}
     page = requests.get(url)
     texte = str(page.content).replace(" ", "").replace("\n", "").replace(r"\n", "")
@@ -72,7 +61,7 @@ def get_item_info(url):
                                 r"yload\"/>\w*</a></td><td>[0-9]*</td><td>([0-9]|,)*</td><td>([0-9]+|Seconds?|Minutes?|"
                                 r"Hours?)+</td><td>[0-9]+")
     needed_regex = re.compile(r"</td><td>(<ahref=\"/Items/Details/[0-9]+/(\w|-)+\"><imgsrc=\"/images/placeholder.png\"d"
-                              r"ata-src=\"/images/ui/([a-zA-Z]|-|\.)+\"alt=\"\w*\"class=\"\w*\"/>\w+</a>(<br/>)?)+")
+                              r"ata-src=\"/images/ui/([a-zA-Z]|-|\.)+\"alt=\"\w*\"class=\"\w*\"/>(\w|,)+</a><br/>)+")
 
     type_iter = type_regex.finditer(str(texte))
     value_iter = value_regex.finditer(str(texte))
@@ -121,7 +110,7 @@ def get_item_info(url):
                 time += int(number) * 60
             elif unit == "Hour":
                 time += int(number) * 60 * 60
-        print(time)
+        result['time'] = int(time)
 
         result["quantity"] = int(str(re.sub("<divclass=\"panelpanel-default\"><divclass=\"panel-headingtext-center\"><h"
                                             "4style=\"display:inline;\"><spanclass=\"text-capitalize\">\w*</span>iscrea"
@@ -136,12 +125,15 @@ def get_item_info(url):
                                             "",
                                             quantity_iter.__next__().group(0))))
         needed_text = re.sub(r"</td><td>", "", needed_iter.__next__().group(0))
+
         item_name_iter = re.finditer(r"<ahref=\"/Items/Details/[0-9]+/(\w|-)+", str(needed_text))
-        item_quantity_iter = re.finditer(r"class=\"\w*\"/>[A-Za-z]+[0-9]+", str(needed_text))
+        item_quantity_iter = re.finditer(r"class=\"\w*\"/>[A-Za-z]+([0-9]|,)+", str(needed_text))
 
         for item_name_match, item_quantity_match in zip(item_name_iter, item_quantity_iter):
             item_name = re.sub(r"<ahref=\"/Items/Details/[0-9]+/", "", item_name_match.group(0))
-            item_quantity = int(re.sub(r"class=\"\w*\"/>[A-Za-z]+", "", item_quantity_match.group(0)))
+            item_quantity = int(
+                re.sub(r"class=\"\w*\"/>[A-Za-z]+", "", item_quantity_match.group(0)).replace(",", "").replace(
+                    ".", ""))
             result["needed"].update({format_string(item_name): item_quantity})
 
 
@@ -150,23 +142,62 @@ def get_item_info(url):
 
     return result
 
+
 def get_sector_info():
-    page = requests.get("https://deeptownguide.com/Items")
+    page = requests.get("https://deeptownguide.com/Areas/Resources")
+    texte = str(page.content).replace(" ", "").replace("\n", "").replace(r"\n", "")
+    line_regex = re.compile(r"<tr><tdclass=\"([a-zA-Z]|-)*\">[0-9]+</td>(<td>(<ahref=\"/Items/Details/[0-9]+/\w+\"><img"
+                            r"src=\"/images/placeholder\.png\"data-src=\"/images/ui/(\w|-)+\.png\"alt=\"\w*\"class=\"\w"
+                            r"*\"/><br/>\w*</a><br/>([0-9]|\.|%)+|&nbsp;)</td>)+")
     num_regex = re.compile(r"<tr><tdclass=\"([a-zA-Z]|-)*\">[0-9]+")
+    item_regex = re.compile(r"<td>(<ahref=\"/Items/Details/[0-9]+/\w+\"><imgsrc=\"/images/placeholder\.png\"data-src=\""
+                            r"/images/ui/(\w|-)+\.png\"alt=\"\w*\"class=\"\w*\"/><br/>\w*</a><br/>([0-9]|\.|%)+|&nbsp;)"
+                            r"</td>")
+    item_name_regex = re.compile(r"(<ahref=\"/Items/Details/[0-9]+/\w+|&nbsp;)")
+    quantity_regex = re.compile(r"<br/>([0-9]|\.)+")
+
+    line_iter = line_regex.finditer(texte)
+
+    etages = {}
+    liste_items = []
+    for line in line_iter:
+        etage_iter = num_regex.finditer(line.group(0))
+        etage = int(re.sub(r"<tr><tdclass=\"text-bold\">", "", etage_iter.__next__().group(0)))
+        item_iter = item_regex.finditer(line.group(0))
+        items = {}
+        for item in item_iter:
+            name_iter = item_name_regex.finditer(item.group(0))
+            name = str(re.sub(r"(<ahref=\"/Items/Details/[0-9]+/|&nbsp;)", "", name_iter.__next__().group(0)))
+            if name != "":
+                quantity_iter = quantity_regex.finditer(item.group(0))
+                quantity = float(re.sub("<br/>", "", quantity_iter.__next__().group(0))) / 100
+                items.update({name: quantity})
+                if name not in liste_items:
+                    liste_items.append(name)
+        etages.update({str(etage): items})
+    etages.update({"0": {name: 0 for name in liste_items}})
+    return etages
 
 
-
-def update_data(file_system):
+def update_data():
     items = {}
     urls_item = get_all_item_urls()
+    print(len(urls_item))
+    a = 0
     for item_url in urls_item:
+        a += 1
         items.update({
-            format_string(re.sub("https://deeptownguide.com/Items/Details/[0-9]+/", "", item_url)): get_item_info(
-                item_url)
+            str(format_string(re.sub("https://deeptownguide.com/Items/Details/[0-9]+/", "", item_url))):
+                get_item_info(item_url)
         })
+        print(a * 100 / len(urls_item), "%")
+    with open('items.json', "w") as dest_file:
+        json.dump(items, dest_file)
+    with open('mines.json', "w") as dest_file:
+        json.dump(get_sector_info(), dest_file)
     return None
 
 
-
 if __name__ == "__main__":
+    print(get_item_info('https://deeptownguide.com/Items/Details/702/stage-ii'))
     update_data()

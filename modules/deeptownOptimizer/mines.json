@@ -1,31 +1,10 @@
 {
-  "0": {
-    "coal": 0,
-    "copper": 0,
-    "iron": 0,
-    "amber": 0,
-    "gold": 0,
-    "aluminium": 0,
-    "silver": 0,
-    "emerald": 0,
-    "ruby": 0,
-    "diamond": 0,
-    "topaz": 0,
-    "sapphire": 0,
-    "amethyst": 0,
-    "alexandrite": 0,
-    "titanium": 0,
-    "uranium": 0,
-    "platinum": 0,
-    "helium3": 0,
-    "obsidian": 0
-  },
   "1": {
-    "coal": 1
+    "coal": 1.0
   },
   "2": {
-    "coal": 0.70,
-    "copper": 0.30
+    "coal": 0.7,
+    "copper": 0.3
   },
   "3": {
     "coal": 0.595,
@@ -42,13 +21,657 @@
     "gold": 0.0075
   },
   "5": {
-    "coal": 0.4900,
+    "coal": 0.49,
     "copper": 0.3667,
     "iron": 0.1133,
-    "amber": 0.0200,
-    "gold": 0.0100
+    "amber": 0.02,
+    "gold": 0.01
+  },
+  "6": {
+    "coal": 0.4375,
+    "copper": 0.4083,
+    "iron": 0.1242,
+    "amber": 0.0175,
+    "gold": 0.0125
+  },
+  "7": {
+    "copper": 0.45,
+    "coal": 0.385,
+    "iron": 0.135,
+    "amber": 0.015,
+    "gold": 0.015
+  },
+  "8": {
+    "copper": 0.4917,
+    "coal": 0.3325,
+    "iron": 0.1458,
+    "gold": 0.0175,
+    "amber": 0.0125
+  },
+  "9": {
+    "copper": 0.5333,
+    "coal": 0.28,
+    "iron": 0.1567,
+    "gold": 0.02,
+    "amber": 0.01
+  },
+  "10": {
+    "copper": 0.575,
+    "coal": 0.2275,
+    "iron": 0.1675,
+    "gold": 0.0225,
+    "amber": 0.0075
+  },
+  "11": {
+    "copper": 0.6167,
+    "iron": 0.1783,
+    "coal": 0.175,
+    "gold": 0.025,
+    "amber": 0.005
+  },
+  "12": {
+    "copper": 0.6583,
+    "iron": 0.1892,
+    "coal": 0.1225,
+    "gold": 0.0275,
+    "amber": 0.0025
   },
   "13": {
-    "copper": 1
+    "copper": 1.0
+  },
+  "14": {
+    "copper": 0.7,
+    "iron": 0.3
+  },
+  "15": {
+    "copper": 0.5832999999999999,
+    "iron": 0.195,
+    "amber": 0.1,
+    "coal": 0.0583,
+    "aluminium": 0.0333,
+    "gold": 0.025,
+    "silver": 0.005
+  },
+  "16": {
+    "copper": 0.525,
+    "iron": 0.1925,
+    "amber": 0.15,
+    "coal": 0.0525,
+    "aluminium": 0.05,
+    "gold": 0.0225,
+    "silver": 0.0075
+  },
+  "17": {
+    "copper": 0.4667,
+    "amber": 0.2,
+    "iron": 0.19,
+    "aluminium": 0.0667,
+    "coal": 0.0467,
+    "gold": 0.02,
+    "silver": 0.01
+  },
+  "18": {
+    "copper": 0.4083,
+    "amber": 0.25,
+    "iron": 0.1875,
+    "aluminium": 0.0833,
+    "coal": 0.0408,
+    "gold": 0.0175,
+    "silver": 0.0125
+  },
+  "19": {
+    "copper": 0.35,
+    "amber": 0.3,
+    "iron": 0.185,
+    "aluminium": 0.1,
+    "coal": 0.035,
+    "gold": 0.015,
+    "silver": 0.015
+  },
+  "20": {
+    "amber": 0.35,
+    "copper": 0.2917,
+    "iron": 0.1825,
+    "aluminium": 0.1167,
+    "coal": 0.0292,
+    "silver": 0.0175,
+    "gold": 0.0125
+  },
+  "21": {
+    "amber": 0.4,
+    "copper": 0.23329999999999998,
+    "iron": 0.18,
+    "aluminium": 0.1333,
+    "coal": 0.0233,
+    "silver": 0.02,
+    "gold": 0.01
+  },
+  "22": {
+    "amber": 0.45,
+    "iron": 0.1775,
+    "copper": 0.175,
+    "aluminium": 0.15,
+    "silver": 0.0225,
+    "coal": 0.0175,
+    "gold": 0.0075
+  },
+  "23": {
+    "amber": 0.5,
+    "iron": 0.175,
+    "aluminium": 0.16670000000000001,
+    "copper": 0.1167,
+    "silver": 0.025,
+    "coal": 0.011699999999999999,
+    "gold": 0.005
+  },
+  "24": {
+    "amber": 0.55,
+    "aluminium": 0.1833,
+    "iron": 0.1725,
+    "copper": 0.0583,
+    "silver": 0.0275,
+    "coal": 0.0058,
+    "gold": 0.0025
+  },
+  "25": {
+    "amber": 1.0
+  },
+  "26": {
+    "amber": 0.7,
+    "aluminium": 0.3
+  },
+  "27": {
+    "amber": 0.5,
+    "aluminium": 0.2667,
+    "iron": 0.1917,
+    "silver": 0.0417
+  },
+  "28": {
+    "amber": 0.45,
+    "aluminium": 0.3,
+    "iron": 0.2025,
+    "silver": 0.0475
+  },
+  "29": {
+    "amber": 0.4,
+    "aluminium": 0.3333,
+    "iron": 0.2133,
+    "silver": 0.0533
+  },
+  "30": {
+    "aluminium": 0.3667,
+    "amber": 0.35,
+    "iron": 0.2242,
+    "silver": 0.0592
+  },
+  "31": {
+    "aluminium": 0.4,
+    "amber": 0.3,
+    "iron": 0.235,
+    "silver": 0.065
+  },
+  "32": {
+    "aluminium": 0.43329999999999996,
+    "amber": 0.25,
+    "iron": 0.2458,
+    "silver": 0.0708
+  },
+  "33": {
+    "aluminium": 0.4667,
+    "iron": 0.25670000000000004,
+    "amber": 0.2,
+    "silver": 0.0767
+  },
+  "34": {
+    "aluminium": 0.5,
+    "iron": 0.2675,
+    "amber": 0.15,
+    "silver": 0.0825
+  },
+  "35": {
+    "aluminium": 0.5333,
+    "iron": 0.2783,
+    "amber": 0.1,
+    "silver": 0.0883
+  },
+  "36": {
+    "aluminium": 0.5667,
+    "iron": 0.2892,
+    "silver": 0.0942,
+    "amber": 0.05
+  },
+  "37": {
+    "aluminium": 1.0
+  },
+  "38": {
+    "aluminium": 0.7,
+    "iron": 0.3
+  },
+  "39": {
+    "aluminium": 0.5,
+    "iron": 0.25,
+    "silver": 0.1117,
+    "gold": 0.1,
+    "emerald": 0.0383
+  },
+  "40": {
+    "aluminium": 0.45,
+    "iron": 0.225,
+    "gold": 0.15,
+    "silver": 0.1175,
+    "emerald": 0.0575
+  },
+  "41": {
+    "aluminium": 0.4,
+    "gold": 0.2,
+    "iron": 0.2,
+    "silver": 0.1233,
+    "emerald": 0.0767
+  },
+  "42": {
+    "aluminium": 0.35,
+    "gold": 0.25,
+    "iron": 0.175,
+    "silver": 0.1292,
+    "emerald": 0.0958
+  },
+  "43": {
+    "aluminium": 0.3,
+    "gold": 0.3,
+    "iron": 0.15,
+    "silver": 0.135,
+    "emerald": 0.115
+  },
+  "44": {
+    "gold": 0.35,
+    "aluminium": 0.25,
+    "silver": 0.1408,
+    "emerald": 0.13419999999999999,
+    "iron": 0.125
+  },
+  "45": {
+    "gold": 0.4,
+    "aluminium": 0.2,
+    "emerald": 0.1533,
+    "silver": 0.1467,
+    "iron": 0.1
+  },
+  "46": {
+    "gold": 0.45,
+    "emerald": 0.1725,
+    "silver": 0.1525,
+    "aluminium": 0.15,
+    "iron": 0.075
+  },
+  "47": {
+    "gold": 0.5,
+    "emerald": 0.1917,
+    "silver": 0.1583,
+    "aluminium": 0.1,
+    "iron": 0.05
+  },
+  "48": {
+    "gold": 0.55,
+    "emerald": 0.2108,
+    "silver": 0.1642,
+    "aluminium": 0.05,
+    "iron": 0.025
+  },
+  "49": {
+    "gold": 1.0
+  },
+  "50": {
+    "gold": 0.7,
+    "emerald": 0.3
+  },
+  "51": {
+    "gold": 0.5,
+    "emerald": 0.2583,
+    "silver": 0.1417,
+    "ruby": 0.05,
+    "diamond": 0.0333,
+    "topaz": 0.0167
+  },
+  "52": {
+    "gold": 0.45,
+    "emerald": 0.2725,
+    "silver": 0.1275,
+    "ruby": 0.075,
+    "diamond": 0.05,
+    "topaz": 0.025
+  },
+  "53": {
+    "gold": 0.4,
+    "emerald": 0.2867,
+    "silver": 0.1133,
+    "ruby": 0.1,
+    "diamond": 0.0667,
+    "topaz": 0.0333
+  },
+  "54": {
+    "gold": 0.35,
+    "emerald": 0.30079999999999996,
+    "ruby": 0.125,
+    "silver": 0.0992,
+    "diamond": 0.0833,
+    "topaz": 0.0417
+  },
+  "55": {
+    "emerald": 0.315,
+    "gold": 0.3,
+    "ruby": 0.15,
+    "diamond": 0.1,
+    "silver": 0.085,
+    "topaz": 0.05
+  },
+  "57": {
+    "emerald": 0.3433,
+    "ruby": 0.2,
+    "gold": 0.2,
+    "diamond": 0.1333,
+    "topaz": 0.0667,
+    "silver": 0.0567
+  },
+  "58": {
+    "emerald": 0.3575,
+    "ruby": 0.225,
+    "gold": 0.15,
+    "diamond": 0.15,
+    "topaz": 0.075,
+    "silver": 0.0425
+  },
+  "60": {
+    "emerald": 0.3858,
+    "ruby": 0.275,
+    "diamond": 0.1833,
+    "topaz": 0.0917,
+    "gold": 0.05,
+    "silver": 0.014199999999999999
+  },
+  "61": {
+    "emerald": 1.0
+  },
+  "62": {
+    "emerald": 0.7,
+    "ruby": 0.3
+  },
+  "65": {
+    "ruby": 0.3333,
+    "emerald": 0.2667,
+    "topaz": 0.16670000000000001,
+    "diamond": 0.1333,
+    "sapphire": 0.0667,
+    "amethyst": 0.0333
+  },
+  "66": {
+    "ruby": 0.3417,
+    "emerald": 0.23329999999999998,
+    "topaz": 0.1833,
+    "diamond": 0.1167,
+    "sapphire": 0.0833,
+    "amethyst": 0.0417
+  },
+  "67": {
+    "ruby": 0.35,
+    "emerald": 0.2,
+    "topaz": 0.2,
+    "diamond": 0.1,
+    "sapphire": 0.1,
+    "amethyst": 0.05
+  },
+  "68": {
+    "ruby": 0.3583,
+    "topaz": 0.2167,
+    "emerald": 0.16670000000000001,
+    "sapphire": 0.1167,
+    "diamond": 0.0833,
+    "amethyst": 0.0583
+  },
+  "70": {
+    "ruby": 0.375,
+    "topaz": 0.25,
+    "sapphire": 0.15,
+    "emerald": 0.1,
+    "amethyst": 0.075,
+    "diamond": 0.05
+  },
+  "71": {
+    "ruby": 0.3833,
+    "topaz": 0.2667,
+    "sapphire": 0.16670000000000001,
+    "amethyst": 0.0833,
+    "emerald": 0.0667,
+    "diamond": 0.0333
+  },
+  "72": {
+    "ruby": 0.3917,
+    "topaz": 0.2833,
+    "sapphire": 0.1833,
+    "amethyst": 0.0917,
+    "emerald": 0.0333,
+    "diamond": 0.0167
+  },
+  "73": {
+    "ruby": 1.0
+  },
+  "74": {
+    "ruby": 0.7,
+    "topaz": 0.3
+  },
+  "75": {
+    "ruby": 0.3333,
+    "topaz": 0.25,
+    "sapphire": 0.16670000000000001,
+    "amethyst": 0.15,
+    "alexandrite": 0.045
+  },
+  "81": {
+    "amethyst": 0.3,
+    "alexandrite": 0.18
+  },
+  "83": {
+    "amethyst": 0.35,
+    "alexandrite": 0.225
+  },
+  "84": {
+    "amethyst": 0.375,
+    "alexandrite": 0.2475
+  },
+  "85": {
+    "amethyst": 1.0
+  },
+  "86": {
+    "amethyst": 0.7,
+    "alexandrite": 0.3
+  },
+  "87": {
+    "amethyst": 0.3333,
+    "alexandrite": 0.225
+  },
+  "88": {
+    "amethyst": 0.3,
+    "alexandrite": 0.2025
+  },
+  "89": {
+    "amethyst": 0.2667,
+    "obsidian": 0.2,
+    "alexandrite": 0.18
+  },
+  "90": {
+    "obsidian": 0.25,
+    "amethyst": 0.23329999999999998
+  },
+  "91": {
+    "obsidian": 0.3,
+    "amethyst": 0.2
+  },
+  "92": {
+    "obsidian": 0.35,
+    "amethyst": 0.16670000000000001
+  },
+  "93": {
+    "obsidian": 0.4,
+    "amethyst": 0.1333
+  },
+  "94": {
+    "obsidian": 0.45
+  },
+  "95": {
+    "obsidian": 0.5,
+    "diamond": 0.125
+  },
+  "96": {
+    "obsidian": 0.55,
+    "diamond": 0.1375,
+    "sapphire": 0.11
+  },
+  "97": {
+    "obsidian": 1.0
+  },
+  "98": {
+    "obsidian": 0.7,
+    "diamond": 0.3
+  },
+  "99": {
+    "obsidian": 0.5,
+    "diamond": 0.125,
+    "iron": 0.11,
+    "sapphire": 0.1
+  },
+  "100": {
+    "obsidian": 0.45,
+    "iron": 0.165,
+    "diamond": 0.1125,
+    "sapphire": 0.09
+  },
+  "101": {
+    "obsidian": 0.4,
+    "iron": 0.22,
+    "diamond": 0.1,
+    "sapphire": 0.08
+  },
+  "102": {
+    "obsidian": 0.35,
+    "iron": 0.275,
+    "diamond": 0.0875,
+    "coal": 0.0833,
+    "sapphire": 0.07
+  },
+  "103": {
+    "iron": 0.33,
+    "obsidian": 0.3,
+    "coal": 0.1,
+    "diamond": 0.075,
+    "silver": 0.06,
+    "sapphire": 0.06
+  },
+  "104": {
+    "iron": 0.385,
+    "obsidian": 0.25,
+    "coal": 0.1167,
+    "silver": 0.07,
+    "diamond": 0.0625,
+    "sapphire": 0.05
+  },
+  "105": {
+    "iron": 0.44,
+    "obsidian": 0.2,
+    "coal": 0.1333,
+    "silver": 0.08,
+    "diamond": 0.05,
+    "sapphire": 0.04
+  },
+  "106": {
+    "iron": 0.495,
+    "obsidian": 0.15,
+    "coal": 0.15,
+    "silver": 0.09,
+    "diamond": 0.0375,
+    "sapphire": 0.03
+  },
+  "107": {
+    "iron": 0.55,
+    "coal": 0.16670000000000001,
+    "obsidian": 0.1,
+    "silver": 0.1,
+    "diamond": 0.025,
+    "sapphire": 0.02
+  },
+  "108": {
+    "iron": 0.605,
+    "coal": 0.1833,
+    "silver": 0.11,
+    "obsidian": 0.05
+  },
+  "109": {
+    "iron": 0.66,
+    "coal": 0.2,
+    "silver": 0.12
+  },
+  "110": {
+    "iron": 0.655,
+    "coal": 0.1833,
+    "silver": 0.11
+  },
+  "111": {
+    "iron": 0.65,
+    "coal": 0.16670000000000001,
+    "silver": 0.1
+  },
+  "112": {
+    "iron": 0.645,
+    "coal": 0.15,
+    "silver": 0.09
+  },
+  "113": {
+    "iron": 0.64,
+    "coal": 0.1333,
+    "silver": 0.08
+  },
+  "114": {
+    "iron": 0.635,
+    "coal": 0.1167,
+    "gold": 0.0833
+  },
+  "115": {
+    "iron": 0.63,
+    "coal": 0.1,
+    "gold": 0.1
+  },
+  "116": {
+    "iron": 0.625,
+    "gold": 0.1167
+  },
+  "117": {
+    "iron": 0.62,
+    "gold": 0.1333
+  },
+  "118": {
+    "iron": 0.615,
+    "gold": 0.15
+  },
+  "119": {
+    "iron": 1.0
+  },
+  "120": {
+    "iron": 0.5,
+    "coal": 0.5
+  },
+  "0": {
+    "coal": 0,
+    "copper": 0,
+    "iron": 0,
+    "amber": 0,
+    "gold": 0,
+    "aluminium": 0,
+    "silver": 0,
+    "emerald": 0,
+    "ruby": 0,
+    "diamond": 0,
+    "topaz": 0,
+    "sapphire": 0,
+    "amethyst": 0,
+    "alexandrite": 0,
+    "obsidian": 0
   }
 }
