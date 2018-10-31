@@ -10,13 +10,22 @@ import pymysql as mariadb
 import os
 
 # Setup database
+# db_connection = mariadb.connect(host=os.environ.get('FOBOT_DATABASE_HOST', '127.0.0.1'),
+#                                 port=os.environ.get('FOBOT_DATABASE_PORT', 3307),
+#                                 user=os.environ['FOBOT_DATABASE_USER'],
+#                                 password=os.environ['FOBOT_DATABASE_PASSWORD'],
+#                                 db=os.environ.get('FOBOT_DATABASE_NAME', 'fobot'),
+#                                 charset='utf8mb4',
+#                                 cursorclass=mariadb.cursors.DictCursor)
+
 db_connection = mariadb.connect(host='127.0.0.1',
-                                port=3307,
-                                user=os.environ['FOBOT_DATABASE_USER'],
-                                password=os.environ['FOBOT_DATABASE_PASSWORD'],
-                                db='fobot',
-                                charset='utf8mb4',
-                                cursorclass=mariadb.cursors.DictCursor)
+                                 port=3307,
+                                 user='root',
+                                 password='sfkr4m37',
+                                 db='fobot',
+                                 charset='utf8mb4',
+                                 cursorclass=mariadb.cursors.DictCursor)
+
 
 
 def to_str(entier):
@@ -76,7 +85,7 @@ class Guild:
         self.id = guild_id
         self.bot = bot
         self.config = {"modules": ["modules"],
-                       "prefix": "§",
+                       "prefix": "!",
                        "master_admins": [318866596502306816],
                        "lang": "FR_fr"
                        }
@@ -88,24 +97,24 @@ class Guild:
     def load_config(self):
         with self.bot.database.cursor() as cursor:
             # Create guild table if it not exists
-            sql_create = """CREATE TABLE IF NOT EXISTS {guild_id} (
+            sql_create = """CREATE TABLE IF NOT EXISTS {guild_id}main (
                 id int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 name varchar(50) NOT NULL,
                 content JSON CHECK (JSON_VALID(content))
-            );""".format(guild_id=to_str(self.id))
+            );""".format(guild_id=self.id)
             cursor.execute(sql_create)
             # Load config row
-            sql_content = """SELECT id,name,content FROM {guild_id} WHERE name='config';""".format(
-                guild_id=to_str(self.id))
+            sql_content = """SELECT id,name,content FROM {guild_id}main WHERE name='config';""".format(
+                guild_id=self.id)
             cursor.execute(sql_content)
             result = cursor.fetchone()
             if result is None:
-                sql_insert = """INSERT INTO {guild_id} (name) VALUES ('config');""".format(guild_id=to_str(self.id))
+                sql_insert = """INSERT INTO {guild_id}main (name) VALUES ('config');""".format(guild_id=self.id)
                 cursor.execute(sql_insert)
                 self.save_config()
                 # Refetch config
-                sql_content = """SELECT id,name,content FROM {guild_id} WHERE name='config';""".format(
-                    guild_id=to_str(self.id))
+                sql_content = """SELECT id,name,content FROM {guild_id}main WHERE name='config';""".format(
+                    guild_id=self.id)
                 cursor.execute(sql_content)
                 result = cursor.fetchone()
 
@@ -114,8 +123,8 @@ class Guild:
 
     def save_config(self):
         with self.bot.database.cursor() as cursor:
-            sql = r"""UPDATE {guild_id} SET content='{configjson}' WHERE name='config';""".format(
-                guild_id=to_str(self.id),
+            sql = r"""UPDATE {guild_id}main SET content='{configjson}' WHERE name='config';""".format(
+                guild_id=self.id,
                 configjson=re.escape(json.dumps(self.config)))
             cursor.execute(sql)
         self.bot.database.commit()
@@ -149,7 +158,7 @@ class Guild:
         if not msg.author.bot:
             for module in self.modules:
                 await module.on_message(msg)
-            print(msg.content)
+            print(msg.guild, msg.content)
         return
 
 

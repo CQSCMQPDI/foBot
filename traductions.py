@@ -195,32 +195,68 @@ commande :smile: https://github.com/Fomys/foBot",
 
                 }
             },
+            "survey": {
+                "description": "Module permettant de faire des sondages",
+                "help": {
+                    "create_survey": {
+                        "description": "Créer un sondage et vous renvoie son id",
+                        "examples": [
+                            ("`{prefix}create_survey 13d23h43m23s Que dites vous?`",
+                             "Crée un sondage intitulé \"pain au chocolat ou chocolatine?\". Retourne un id.Il faut uti"
+                             "liser la command `{prefix}add_choice` pour rajouter une option.")
+                        ],
+                    },
+                    "add_option": {
+                        "description": "Rajoute une option àun sondage non commencé",
+                        "examples": [
+                            ("`{prefix}add_option 146 Pain au chocolat`", "Ajoute l'option \"Pain au chocolat\" au sond"
+                                                                          "age numéro 146"),
+                            ("`{prefix}add_option 146 Chocolatine`", "Ajoute l'option \"Chocolatine\" au sondage numéro"
+                                                                     " 146")
+                        ],
+                    },
+                },
+                "create_survey": "Le sondage {id} viens d'être créé. Utilisez la commande `{prefix}add_choice {id} \"Op"
+                                 "tion\"` pout ajouter une option au sondage (vous pouvez mettre un piècre jointe). Une"
+                                 " fois toutes les options ajoutées, utilisez la commande `{prefix}post_survey {id}` da"
+                                 "ns le channel où vous voulez poster le sondage. Le sondage commencera lorsque vous fe"
+                                 "rez la commande `{prefix}post_survey {id}`",
+                "post_survey":{
+                    "presentation":"Un nouveau sondage a été créé. Votez pour le choix que vous préférez avec la comman"
+                                   "de `{prefix}vote choix` en remplaçant choix par le numéro de l'option pour laquelle"
+                                   " vous votez. Ce sondage se termine dans {heures} heures. Bon vote!",
+                },
+                "vote": "<@{id_auteur}> votre vote a bien été pris en compte",
+                "result": {
+                    "text":"Voici les résultats pour le sondage"
+                }
+            },
         },
         "errors": {
-            "LangNotFoundError": "La langue {lang} est introuvable, tapez {prefix}list_lang pour voir les langues "
-                                 "disponibles.",
+            "LangNotFoundError": "La langue {lang} est introuvable, tapez {prefix}list_lang pour voir les langues dispo"
+                                 "nibles.",
             "PermissionError": "Vous n'avez pas la permission de faire cette action.",
             "ModuleNotFoundOrDeactivatedError": {
                 "title": "Erreur",
                 "name": "Erreur lors de la désactivation du module {module}:",
-                "value": "Celui-ci n'existe pas ou n'es pas activé. Tapez {prefix}list_modules pour voir la liste des "
-                         "modules disponibles.",
+                "value": "Celui-ci n'existe pas ou n'es pas activé. Tapez {prefix}list_modules pour voir la liste des m"
+                         "odules disponibles.",
 
             },
             "ModuleNotFoundError": {
                 "title": "Erreur",
                 "name": "Erreur lors de l'activation du module {module}:",
-                "value": "Celui-ci n'existe pas. Tapez {prefix}list_modules pour voir la liste des modules "
-                         "disponibles.",
-                "text": "Le module {module} n'existe pas, tapez {prefix}list_modules pour voir la liste des modules "
-                        "disponibles.",
+                "value": "Celui-ci n'existe pas. Tapez {prefix}list_modules pour voir la liste des modules disponibles."
+                         "",
+                "text": "Le module {module} n'existe pas, tapez {prefix}list_modules pour voir la liste des modules dis"
+                        "ponibles.",
             },
             "ForbiddenConfigError": "Ce paramètre ne peut pas être modifié directement.",
             "UnknownConfigError": "Le paramètre demandé n'existe pas. Utilisez {prefix}list pour lister les paramètres "
                                   "modifiables.",
             "NotEnoughParamError": "Il manque un ou plusieurs parametres à la commande.",
-            "NoMentionsError": "Vous devez mentioner un utilisateur pour le rajouter à la liste des administrateurs "
-                               "du bot.",
+            "NoMentionsError": "Vous devez mentioner un utilisateur pour le rajouter à la liste des administrateurs du "
+                               "bot.",
             "OreNotFoundError": "{ore} n'est pas un minerais valide.",
             "NotIntError": "{number} n'est pas un nombre entier valide.",
             "ItemNotFoundError": "{item} n'extiste pas dans deeptown",
@@ -230,6 +266,16 @@ commande :smile: https://github.com/Fomys/foBot",
             "ForbiddenRegexError": "Vous n'avez pas le droit d'utiliser les caractères `*` et `+` dans une regex.",
             "RegexTooLongError": "La regex ne doit pas faire plus e 50 caractères",
             "PiFileError": "Les décimales de pi sont indisponibles, veuillez réessayer plus tard...",
+            "AttachementTooBigError": "Le fichier join est trop volumineux, veuillez le compresser avant de réessayer",
+            "SurveyNotExistsError": "Le sondage que vous demandez n'existe pas.",
+            "NotANumberError": "La valeur que vous avezpassé en paramètre n'est pas un nombre valide.",
+            "AlreadySendSurvey": "Le sondage que vous essayez de poster a déjà été posté",
+            "SurveyCompletedError": "Le sondage que vous demandez est terminé",
+            "AlreadyVote": "Vous avez déjà voté pour ce sondage",
+            "NotYetPostedError": "Le sondage que vous demandez n'a pas encore été publié",
+            "NotYetFinishedError": "Le sondage que vous demandez n'est pas fini, pour éviter d'influencer les autres vo"
+                                   "tes les résultats ne seront disponibles que à la fin.",
+            "DiscordForbiddenError": "Je n'ai pas les droits pour supprimer le message."
         },
     },
 }

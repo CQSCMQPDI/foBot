@@ -45,7 +45,7 @@ class MainClass:
                         texte += "\n"
                         texte += exemple[0].format(prefix=self.guild.config["prefix"])
                         texte += ": "
-                        texte += exemple[1]
+                        texte += exemple[1].format(prefix=self.guild.config["prefix"])
                     await msg.channel.send(texte)
                 else:
                     await msg.channe.send(tr.tr[self.guild.config["lang"]]["errors"]["CommandNotFoundError"].format(command=fonction))
