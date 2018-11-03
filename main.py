@@ -1,31 +1,17 @@
+import datetime
 import importlib
 import json
 import logging
 import logging.config
 import re
+import sys
+import traceback
+
 import discord
 
 import pymysql as mariadb
 
 import os
-
-# Setup database
-# db_connection = mariadb.connect(host=os.environ.get('FOBOT_DATABASE_HOST', '127.0.0.1'),
-#                                 port=os.environ.get('FOBOT_DATABASE_PORT', 3307),
-#                                 user=os.environ['FOBOT_DATABASE_USER'],
-#                                 password=os.environ['FOBOT_DATABASE_PASSWORD'],
-#                                 db=os.environ.get('FOBOT_DATABASE_NAME', 'fobot'),
-#                                 charset='utf8mb4',
-#                                 cursorclass=mariadb.cursors.DictCursor)
-
-db_connection = mariadb.connect(host='127.0.0.1',
-                                 port=3307,
-                                 user='root',
-                                 password='sfkr4m37',
-                                 db='fobot',
-                                 charset='utf8mb4',
-                                 cursorclass=mariadb.cursors.DictCursor)
-
 
 
 def to_str(entier):
@@ -79,6 +65,27 @@ warning = log_foBot.warning
 error = log_foBot.error
 critical = log_foBot.critical
 
+# Setup database
+db_connection = None
+try:
+    db_connection = mariadb.connect(host=os.environ['FOBOT_DATABASE_HOST'],
+                                    port=int(os.environ['FOBOT_DATABASE_PORT']),
+                                    user=os.environ['FOBOT_DATABASE_USER'],
+                                    password=os.environ['FOBOT_DATABASE_PASSWORD'],
+                                    db=os.environ['FOBOT_DATABASE_NAME'],
+                                    charset='utf8mb4',
+                                    cursorclass=mariadb.cursors.DictCursor)
+except KeyError as e:
+    traceback.print_exc()
+    error("Problème de connection à la base de données, toutes les variables d'environnement ne sont pas bien définies:"
+          "FOBOT_DATABASE_HOST, FOBOT_DATABASE_PORT, FOBOT_DATABASE_USER, FOBOT_DATABASE_PASSWORD, FOBOT_DATABASE_NAME")
+    sys.exit()
+except:
+    traceback.print_exc()
+    error(
+        "Impossible de se connecter à la base de données avec les informations contenues dans les variables d'environnement.")
+    sys.exit()
+
 
 class Guild:
     def __init__(self, bot, guild_id):
@@ -93,14 +100,22 @@ class Guild:
         self.load_config()
         self.update_modules()
         self.save_config()
+        self.create_log()
+
+    def create_log(self):
+        try:
+            os.mkdir('logs')
+            os.mkdir(os.path.join("logs", str(self.id)))
+        except FileExistsError:
+            pass
 
     def load_config(self):
         with self.bot.database.cursor() as cursor:
             # Create guild table if it not exists
             sql_create = """CREATE TABLE IF NOT EXISTS {guild_id}main (
-                id int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                name varchar(50) NOT NULL,
-                content JSON CHECK (JSON_VALID(content))
+                id INT(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(50) NOT NULL,
+                content VARCHAR(20000)
             );""".format(guild_id=self.id)
             cursor.execute(sql_create)
             # Load config row
@@ -158,7 +173,36 @@ class Guild:
         if not msg.author.bot:
             for module in self.modules:
                 await module.on_message(msg)
-            print(msg.guild, msg.content)
+        log_path = os.path.join("logs", str(self.id), str(msg.channel.id)) + ".log"
+        with open(log_path, 'a') as file:
+            file.write("::".join(["create",
+                                  datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
+                                  str(msg.id),
+                                  str(msg.author.id),
+                                  "attachment=" + str(len(msg.attachments)),
+                                  msg.content, ]) + "\n")
+        return
+
+    async def on_message_delete(self, msg):
+        log_path = os.path.join("logs", str(self.id), str(msg.channel.id)) + ".log"
+        with open(log_path, 'a') as file:
+            file.write("::".join(["delete",
+                                  datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
+                                  str(msg.id),
+                                  str(msg.author.id),
+                                  "attachment=" + str(len(msg.attachments)),
+                                  msg.content, ]) + "\n")
+        return
+
+    async def on_message_edit(self, before, after):
+        log_path = os.path.join("logs", str(self.id), str(after.channel.id)) + ".log"
+        with open(log_path, 'a') as file:
+            file.write("::".join(["  edit",
+                                  datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
+                                  str(before.id),
+                                  str(after.author.id),
+                                  "attachment=" + str(len(after.attachments)),
+                                  after.content, ]) + "\n")
         return
 
 
@@ -210,6 +254,12 @@ class FoBot(discord.Client):
     async def on_message(self, msg):
         await self.guilds_class[msg.guild.id].on_message(msg)
 
+    async def on_message_delete(self, msg):
+        await self.guilds_class[msg.guild.id].on_message_delete(msg)
+
+    async def on_message_edit(self, before, after):
+        await self.guilds_class[before.guild.id].on_message_edit(before, after)
+
 
 myBot = FoBot()
-myBot.run(os.environ['DISCORD_TOKEN'], max_messages=100000000)
+myBot.run(os.environ['FOBOT_DISCORD_TOKEN'], max_messages=100000000)

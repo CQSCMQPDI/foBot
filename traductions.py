@@ -120,8 +120,9 @@ tr = {
                     "reload_optimizer": {
                         "description": "Recharge les quantités deressources nécessaires, réservé aux admins",
                         "example": [
-                            ("`{prefix}reload_optimizer`", "Recharge les quantités de ressources nécessaires pour faire "
-                                                           "les différents items.")
+                            (
+                            "`{prefix}reload_optimizer`", "Recharge les quantités de ressources nécessaires pour faire "
+                                                          "les différents items.")
                         ]
                     }
                 },
@@ -153,10 +154,10 @@ tr = {
                     "pi": {
                         "description": "Donne 2000 décimales de pi.",
                         "examples": [
-                            ("`(prefix}pi`", "Affiche les 2000 premières décimales de pi."),
+                            ("`{prefix}pi`", "Affiche les 2000 premières décimales de pi."),
                             ("`{prefix}pi 2000`", "Affiche 2000 décimales de pi à partir de la 2000ème"),
                         ],
-                    },"fpi": {
+                    }, "fpi": {
                         "description": "Recherche l'expression régulière dans pi",
                         "examples": [
                             ("`{prefix}fpi 12345`", "Affiche les 10 premières occurences de 12345 dans pi"),
@@ -173,12 +174,12 @@ tr = {
                     "sourcecode": {
                         "description": "Donne un lien vers mon code source (il est là comme ca tu a pas retapper la \
 commande :smile: https://github.com/Fomys/foBot",
-                        "examples":[
+                        "examples": [
                             ("`prefix`sourcecode", "Affiche mon code source")
                         ]
                     },
                 },
-                "sourcecode":"Mon code source est disponible sur github: https://github.com/Fomys/foBot",
+                "sourcecode": "Mon code source est disponible sur github: https://github.com/Fomys/foBot",
             },
             "tools": {
                 "description": "Commandes utiles",
@@ -221,14 +222,14 @@ commande :smile: https://github.com/Fomys/foBot",
                                  " fois toutes les options ajoutées, utilisez la commande `{prefix}post_survey {id}` da"
                                  "ns le channel où vous voulez poster le sondage. Le sondage commencera lorsque vous fe"
                                  "rez la commande `{prefix}post_survey {id}`",
-                "post_survey":{
-                    "presentation":"Un nouveau sondage a été créé. Votez pour le choix que vous préférez avec la comman"
-                                   "de `{prefix}vote choix` en remplaçant choix par le numéro de l'option pour laquelle"
-                                   " vous votez. Ce sondage se termine dans {heures} heures. Bon vote!",
+                "post_survey": {
+                    "presentation": "Un nouveau sondage a été créé. Votez pour le choix que vous préférez avec la comman"
+                                    "de `{prefix}vote choix` en remplaçant choix par le numéro de l'option pour laquelle"
+                                    " vous votez. Ce sondage se termine dans {heures} heures. Bon vote!",
                 },
                 "vote": "<@{id_auteur}> votre vote a bien été pris en compte",
                 "result": {
-                    "text":"Voici les résultats pour le sondage"
+                    "text": "Voici les résultats pour le sondage"
                 }
             },
         },

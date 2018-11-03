@@ -1,7 +1,0 @@
-{
-  "name": "foBot",
-  "description": "A simple bot for discord.",
-  "image": "heroku/python",
-  "repository": "https://github.com/Fomys/foBot",
-  "keywords": ["python", "discord", "rewrite"]
-}

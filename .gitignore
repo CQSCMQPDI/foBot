@@ -113,3 +113,5 @@ foBot_config/*
 modules/pi/pi.txt
 
 *.log*
+
+*.lock
