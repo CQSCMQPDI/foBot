@@ -121,8 +121,9 @@ tr = {
                         "description": "Recharge les quantités deressources nécessaires, réservé aux admins",
                         "example": [
                             (
-                            "`{prefix}reload_optimizer`", "Recharge les quantités de ressources nécessaires pour faire "
-                                                          "les différents items.")
+                                "`{prefix}reload_optimizer`",
+                                "Recharge les quantités de ressources nécessaires pour faire "
+                                "les différents items.")
                         ]
                     }
                 },
@@ -231,6 +232,17 @@ commande :smile: https://github.com/Fomys/foBot",
                 "result": {
                     "text": "Voici les résultats pour le sondage"
                 }
+            },
+            "directAccessDB": {
+                "description": "test",
+                "help": {
+                    "execute": {
+                        "description": "Exécuter une commande sql et renvoyer le résultat",
+                        "exemples": [
+                            ("`{prefix}execute SHOW TABLES;`", "Execute `SHOW TABLES;` statement in mariadb server."),
+                        ],
+                    },
+                },
             },
         },
         "errors": {

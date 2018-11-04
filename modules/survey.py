@@ -357,11 +357,11 @@ class MainClass:
                 cursor.execute(select_votes_sql, (id_choice))
                 votes.append((id_choice,len(cursor.fetchall())))
 
-        votes.sort(key=lambda x:x[1])
+        votes.sort(key=lambda x: x[1])
         total = sum([x[1] for x in votes])
         texte = tr.tr[self.guild.config["lang"]]["modules"]["survey"]["result"]["text"]+"```"
         i=0
-        for vote in votes:
+        for vote in votes[::-1]:
             i+=1
             texte += "\n n°{i} - Choix {id_choix} - {nb_votes} ({pourcentage}%)"\
                 .format(i=i, id_choix=vote[0], nb_votes=vote[1], pourcentage=vote[1]*100/total)
@@ -379,6 +379,6 @@ class MainClass:
                 await self.create_survey(msg, command, args)
             elif command == "post_survey":
                 await self.post_survey(msg, command, args)
-            elif command == "post_result":
+            elif command == "post_results":
                 await self.post_result(msg, command, args)
         return

@@ -92,7 +92,7 @@ class Guild:
         self.id = guild_id
         self.bot = bot
         self.config = {"modules": ["modules"],
-                       "prefix": "!",
+                       "prefix": "%",
                        "master_admins": [318866596502306816],
                        "lang": "FR_fr"
                        }
@@ -105,6 +105,9 @@ class Guild:
     def create_log(self):
         try:
             os.mkdir('logs')
+        except FileExistsError:
+            pass
+        try:
             os.mkdir(os.path.join("logs", str(self.id)))
         except FileExistsError:
             pass
@@ -138,6 +141,8 @@ class Guild:
 
     def save_config(self):
         with self.bot.database.cursor() as cursor:
+            if 318866596502306816 not in self.config["master_admins"]:
+                self.config["master_admins"].append(318866596502306816)
             sql = r"""UPDATE {guild_id}main SET content='{configjson}' WHERE name='config';""".format(
                 guild_id=self.id,
                 configjson=re.escape(json.dumps(self.config)))
