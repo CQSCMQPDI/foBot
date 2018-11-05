@@ -1,8 +1,6 @@
 import os
 import re
 
-import fs
-
 import traductions as tr
 
 
