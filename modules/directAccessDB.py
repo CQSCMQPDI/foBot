@@ -1,14 +1,10 @@
-import os
-import time
-from textwrap import wrap
-
-import discord
 import traductions as tr
 
 
 def to_str(entier):
     return str(entier).replace("1", "a").replace("2", "b").replace("3", "c").replace("4", "d").replace("5", "e") \
         .replace("6", "f").replace("7", "g").replace("8", "h").replace("9", "i").replace("0", "j")
+
 
 def pp(cursor, data=None, rowlens=0):
     d = cursor.description
@@ -19,19 +15,19 @@ def pp(cursor, data=None, rowlens=0):
     rules = []
     if not data:
         data = cursor.fetchall()
-    for dd in d:    # iterate over description
+    for dd in d:  # iterate over description
         l = dd[1]
         if not l:
-            l = 12             # or default arg ...
-        l = min(l, len(dd[0])) # Handle long names
+            l = 12  # or default arg ...
+        l = min(l, len(dd[0]))  # Handle long names
         names.append(dd[0])
         print(dd)
         lengths.append(l)
     for col in range(len(lengths)):
         if rowlens:
             rls = [len(row[col]) for row in data if row[col]]
-            lengths[col] = max([lengths[col]]+rls)
-        rules.append("-"*lengths[col])
+            lengths[col] = max([lengths[col]] + rls)
+        rules.append("-" * lengths[col])
     format = " ".join(["%%-%ss" % l for l in lengths])
     result = [format % tuple(names)]
     result.append(format % tuple(rules))
@@ -40,7 +36,10 @@ def pp(cursor, data=None, rowlens=0):
     return "\n".join(result)
 
 
-class MainClass:
+from modules.base import MainClass as Base
+
+
+class MainClass(Base):
     name = "directAccessDB"
 
     def __init__(self, guild):
@@ -56,8 +55,7 @@ class MainClass:
             self.guild.bot.database.commit()
             string = pp(cursor)
             for to_send in string.split("\n"):
-                await msg.channel.send("```"+to_send+"```")
-
+                await msg.channel.send("```" + to_send + "```")
 
     async def on_message(self, msg):
         if msg.content.startswith(self.guild.config["prefix"] * 2):

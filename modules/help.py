@@ -1,8 +1,9 @@
-import discord
 import traductions as tr
 
+from modules.base import MainClass as Base
 
-class MainClass:
+
+class MainClass(Base):
     name = "help"
 
     def __init__(self, guild):
@@ -48,7 +49,8 @@ class MainClass:
                         texte += exemple[1].format(prefix=self.guild.config["prefix"])
                     await msg.channel.send(texte)
                 else:
-                    await msg.channe.send(tr.tr[self.guild.config["lang"]]["errors"]["CommandNotFoundError"].format(command=fonction))
+                    await msg.channe.send(
+                        tr.tr[self.guild.config["lang"]]["errors"]["CommandNotFoundError"].format(command=fonction))
             else:
                 # module non existant
                 await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["ModuleNotFoundError"]["text"]

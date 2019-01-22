@@ -3,15 +3,13 @@ import importlib
 import json
 import logging
 import logging.config
+import os
 import re
 import sys
 import traceback
 
 import discord
-
 import pymysql as mariadb
-
-import os
 
 
 def to_str(entier):
@@ -94,7 +92,8 @@ class Guild:
         self.config = {"modules": ["modules"],
                        "prefix": "%",
                        "master_admins": [318866596502306816],
-                       "lang": "FR_fr"
+                       "lang": "FR_fr",
+                       "autorole": "",
                        }
         self.modules = []
         self.load_config()
@@ -174,6 +173,10 @@ class Guild:
                 self.modules.append(self.bot.modules[module](guild=self))
         return errors
 
+    async def on_member_join(self, member):
+        for module in self.modules:
+            await module.on_member_join(member)
+
     async def on_message(self, msg):
         if not msg.author.bot:
             for module in self.modules:
@@ -224,7 +227,7 @@ class FoBot(discord.Client):
 
     def load_modules(self):
         for module in os.listdir('modules'):
-            if module[0] != "_" and module.endswith(".py"):
+            if module[0] != "_" and module.endswith(".py") and module != "base.py":
                 imported = importlib.import_module('modules.' + module[:-3])
                 self.modules.update({module[:-3]: imported.MainClass})
 
@@ -264,6 +267,10 @@ class FoBot(discord.Client):
 
     async def on_message_edit(self, before, after):
         await self.guilds_class[before.guild.id].on_message_edit(before, after)
+
+    async def on_member_join(self, member):
+        for guild in self.guilds_class.values():
+            await guild.on_member_join(member)
 
 
 myBot = FoBot()

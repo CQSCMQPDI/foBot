@@ -1,13 +1,15 @@
-import discord
 import traductions as tr
 
+from modules.base import MainClass as Base
 
-class MainClass:
+
+class MainClass(Base):
     name = "github"
+
     def __init__(self, guild):
         self.guild = guild
 
-    async def sourcecode(self,msg, command, args):
+    async def sourcecode(self, msg, command, args):
         await msg.channel.send(tr.tr[self.guild.config["lang"]]["modules"]["github"]["sourcecode"])
 
     async def on_message(self, msg):

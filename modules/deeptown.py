@@ -1,19 +1,20 @@
 import datetime
 
-import discord
-import traductions as tr
 import modules.deeptownOptimizer.optimizer as optimizer
-
+import traductions as tr
 
 item_type_priority = {
-    "quest":00,
-    "crafted":50,
-    "chemical":60,
-    'organic':70,
-    "raw":100,
+    "quest": 00,
+    "crafted": 50,
+    "chemical": 60,
+    'organic': 70,
+    "raw": 100,
 }
 
-class MainClass:
+from modules.base import MainClass as Base
+
+
+class MainClass(Base):
     name = "deeptown"
 
     def __init__(self, guild):

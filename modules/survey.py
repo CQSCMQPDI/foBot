@@ -2,6 +2,7 @@ import os
 import time
 
 import discord
+
 import traductions as tr
 
 
@@ -10,7 +11,10 @@ def to_str(entier):
         .replace("6", "f").replace("7", "g").replace("8", "h").replace("9", "i").replace("0", "j")
 
 
-class MainClass:
+from modules.base import MainClass as Base
+
+
+class MainClass(Base):
     name = "survey"
 
     def __init__(self, guild):
@@ -345,7 +349,8 @@ class MainClass:
 
         # Récupération des choix
         with self.guild.bot.database.cursor() as cursor:
-            sql_select_choices = "SELECT id FROM `{guild_id}survey_choices` WHERE survey=%s;".format(guild_id=self.guild.id)
+            sql_select_choices = "SELECT id FROM `{guild_id}survey_choices` WHERE survey=%s;".format(
+                guild_id=self.guild.id)
             cursor.execute(sql_select_choices, (survey_id))
             choices = [r["id"] for r in cursor.fetchall()]
 
@@ -353,18 +358,19 @@ class MainClass:
         votes = []
         for id_choice in choices:
             with self.guild.bot.database.cursor() as cursor:
-                select_votes_sql = "SELECT id FROM `{guild_id}survey_votes` WHERE choice=%s;".format(guild_id=self.guild.id)
+                select_votes_sql = "SELECT id FROM `{guild_id}survey_votes` WHERE choice=%s;".format(
+                    guild_id=self.guild.id)
                 cursor.execute(select_votes_sql, (id_choice))
-                votes.append((id_choice,len(cursor.fetchall())))
+                votes.append((id_choice, len(cursor.fetchall())))
 
         votes.sort(key=lambda x: x[1])
         total = sum([x[1] for x in votes])
-        texte = tr.tr[self.guild.config["lang"]]["modules"]["survey"]["result"]["text"]+"```"
-        i=0
+        texte = tr.tr[self.guild.config["lang"]]["modules"]["survey"]["result"]["text"] + "```"
+        i = 0
         for vote in votes[::-1]:
-            i+=1
-            texte += "\n n°{i} - Choix {id_choix} - {nb_votes} ({pourcentage}%)"\
-                .format(i=i, id_choix=vote[0], nb_votes=vote[1], pourcentage=vote[1]*100/total)
+            i += 1
+            texte += "\n n°{i} - Choix {id_choix} - {nb_votes} ({pourcentage}%)" \
+                .format(i=i, id_choix=vote[0], nb_votes=vote[1], pourcentage=vote[1] * 100 / total)
         texte += "```"
         await msg.channel.send(texte)
 

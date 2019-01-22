@@ -1,10 +1,12 @@
 import time
 
 import discord
+
 import traductions as tr
+from modules.base import MainClass as Base
 
 
-class MainClass:
+class MainClass(Base):
     name = "tools"
 
     def __init__(self, guild):

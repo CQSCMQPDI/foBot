@@ -1,17 +1,16 @@
-import os
 import re
 
 import traductions as tr
+from modules.base import MainClass as Base
 
 
-class MainClass:
+class MainClass(Base):
     name = "pi"
 
     def __init__(self, guild):
         self.guild = guild
         self.pi_file = "modules/pi/pi1.txt"
         self.piFileError = False
-
 
     async def pi(self, msg, command, args):
         if not self.piFileError:
@@ -22,7 +21,7 @@ class MainClass:
                 except ValueError:
                     await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["TooBigNumberPiError"])
                     return
-            if start > 1000000-2000:
+            if start > 1000000 - 2000:
                 await msg.channel.send(tr.tr[self.guild.config["lang"]]["errors"]["TooBigNumberPiError"])
                 return
             with open(self.pi_file) as pi_file:
