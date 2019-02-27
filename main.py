@@ -179,6 +179,12 @@ class Guild:
     async def on_member_join(self, member):
         for module in self.modules:
             await module.on_member_join(member)
+        log_path = os.path.join("logs", str(self.id)) + ".log"
+        with open(log_path, 'a') as file:
+            file.write("::".join(["member.join",
+                                  datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
+                                  str(member.id), ]) + "\n")
+        return
 
     async def on_message(self, msg):
         if not msg.author.bot:
@@ -186,7 +192,7 @@ class Guild:
                 await module.on_message(msg)
         log_path = os.path.join("logs", str(self.id), str(msg.channel.id)) + ".log"
         with open(log_path, 'a') as file:
-            file.write("::".join(["create",
+            file.write("::".join(["msg.send",
                                   datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
                                   str(msg.id),
                                   str(msg.author.id),
@@ -195,9 +201,12 @@ class Guild:
         return
 
     async def on_message_delete(self, msg):
+        if not msg.author.bot:
+            for module in self.modules:
+                await module.on_message_delete(msg)
         log_path = os.path.join("logs", str(self.id), str(msg.channel.id)) + ".log"
         with open(log_path, 'a') as file:
-            file.write("::".join(["delete",
+            file.write("::".join(["msg.delete",
                                   datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
                                   str(msg.id),
                                   str(msg.author.id),
@@ -206,14 +215,60 @@ class Guild:
         return
 
     async def on_message_edit(self, before, after):
+        if not before.author.bot:
+            for module in self.modules:
+                await module.on_message_edit(before, after)
         log_path = os.path.join("logs", str(self.id), str(after.channel.id)) + ".log"
         with open(log_path, 'a') as file:
-            file.write("::".join(["  edit",
+            file.write("::".join(["msg.edit",
                                   datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
                                   str(before.id),
                                   str(after.author.id),
                                   "attachment=" + str(len(after.attachments)),
                                   after.content, ]) + "\n")
+        return
+        
+    async def on_typing(self, channel, member, when):
+        if not member.bot:
+            for module in self.modules:
+                await module.on_typing(channel, member, when)
+    
+    async def on_reaction_add(self, reaction, user):
+        if not user.bot:
+            for module in self.modules:
+                await module.on_reaction_add(reaction, user)
+        log_path = os.path.join("logs", str(self.id), str(reaction.message.channel.id)) + ".log"
+        with open(log_path, 'a') as file:
+            file.write("::".join(["msg.reaction.add",
+                                  datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
+                                  str(reaction.message.channel.id),
+                                  str(user.id),
+                                  reaction.emoji, ]) + "\n")
+        return
+    
+    async def on_reaction_remove(self, reaction, user):
+        if not user.bot:
+            for module in self.modules:
+                await module.on_reaction_add(reaction, user)
+        log_path = os.path.join("logs", str(self.id), str(reaction.message.channel.id)) + ".log"
+        with open(log_path, 'a') as file:
+            file.write("::".join(["msg.reaction.remove",
+                                  datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
+                                  str(reaction.message.channel.id),
+                                  str(user.id),
+                                  reaction.emoji, ]) + "\n")
+        return
+    
+    async def on_reaction_clean(self, message, reactions):
+        if not user.bot:
+            for module in self.modules:
+                await module.on_reaction_clean(message, reactions)
+        log_path = os.path.join("logs", str(self.id), str(reaction.message.channel.id)) + ".log"
+        with open(log_path, 'a') as file:
+            file.write("::".join(["msg.reaction.clean",
+                                  datetime.datetime.now().strftime("%d/%m/%y %H:%M"),
+                                  str(reaction.message.channel.id),
+                                  str(message.id),]) + "\n")
         return
 
 
@@ -274,6 +329,20 @@ class FoBot(discord.Client):
     async def on_member_join(self, member):
         for guild in self.guilds_class.values():
             await guild.on_member_join(member)
+    
+    async def on_typing(self, channel, member, when):
+        await self.guilds_class[channel.guild.id].on_typing(channel, member, when)
+        
+    async def on_reaction_add(self, reaction, user):
+        await self.guilds_class[reaction.message.guild].on_reaction_add(reaction, user)
+        
+    async def on_reaction_remobe(self, reaction, user):
+        await self.guilds_class[reaction.message.guild].on_reaction_remove(reaction, user)
+        
+    async def on_reaction_clear(self, reaction, user):
+        await self.guilds_class[reaction.message.guild].on_reaction_clear(reaction, user)
+
+
 
 
 myBot = FoBot()

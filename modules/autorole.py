@@ -5,7 +5,7 @@ from traductions import tr
 
 
 class MainClass(Base):
-    name = "config"
+    name = "autorole"
 
     async def on_member_join(self, member):
         role = self.guild.bot.get_guild(self.guild.id).get_role(int(self.guild.config["autorole"]))
