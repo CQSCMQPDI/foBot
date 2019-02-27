@@ -233,13 +233,15 @@ commande :smile: https://github.com/Fomys/foBot",
                     "text": "Voici les résultats pour le sondage"
                 }
             },
-            "directAccessDB": {
+            "dangerous": {
                 "description": "test",
                 "help": {
                     "execute": {
-                        "description": "Exécuter une commande sql et renvoyer le résultat",
+                        "description": "Exécutez des commandes dangereuses",
                         "exemples": [
                             ("`{prefix}execute SHOW TABLES;`", "Execute `SHOW TABLES;` statement in mariadb server."),
+                            ("`{prefix}restart`", "Restart the bot"),
+                            ("`{prefix}stop`", "Stop the bot"),
                         ],
                     },
                 },

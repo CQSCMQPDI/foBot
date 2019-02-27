@@ -1,4 +1,5 @@
 import traductions as tr
+import sys
 
 
 def to_str(entier):
@@ -40,10 +41,16 @@ from modules.base import MainClass as Base
 
 
 class MainClass(Base):
-    name = "directAccessDB"
+    name = "dangerous"
 
     def __init__(self, guild):
         self.guild = guild
+
+    async def restart(self, msg, command, args):
+        exit()
+
+    async def stop(self, msg, command, args):
+        exit(44)
 
     async def execute(self, msg, command, args):
         if msg.author.id not in self.guild.config["master_admins"]:
@@ -62,4 +69,8 @@ class MainClass(Base):
             command, *args = msg.content.lstrip(self.guild.config["prefix"]).split(" ")
             if command == "execute":
                 await self.execute(msg, command, args)
+            elif command == "restart":
+                await self.restart(msg, command, args)
+            elif command == "stop":
+                await self.stop(msg, command, args)
         return
