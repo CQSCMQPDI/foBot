@@ -334,13 +334,13 @@ class FoBot(discord.Client):
         await self.guilds_class[channel.guild.id].on_typing(channel, member, when)
         
     async def on_reaction_add(self, reaction, user):
-        await self.guilds_class[reaction.message.guild].on_reaction_add(reaction, user)
+        await self.guilds_class[reaction.message.guild.id].on_reaction_add(reaction, user)
         
     async def on_reaction_remobe(self, reaction, user):
-        await self.guilds_class[reaction.message.guild].on_reaction_remove(reaction, user)
+        await self.guilds_class[reaction.message.guild.id].on_reaction_remove(reaction, user)
         
     async def on_reaction_clear(self, reaction, user):
-        await self.guilds_class[reaction.message.guild].on_reaction_clear(reaction, user)
+        await self.guilds_class[reaction.message.guild.id].on_reaction_clear(reaction, user)
 
 
 
