@@ -336,11 +336,11 @@ class FoBot(discord.Client):
     async def on_reaction_add(self, reaction, user):
         await self.guilds_class[reaction.message.guild.id].on_reaction_add(reaction, user)
         
-    async def on_reaction_remobe(self, reaction, user):
+    async def on_reaction_remove(self, reaction, user):
         await self.guilds_class[reaction.message.guild.id].on_reaction_remove(reaction, user)
         
-    async def on_reaction_clear(self, reaction, user):
-        await self.guilds_class[reaction.message.guild.id].on_reaction_clear(reaction, user)
+    async def on_reaction_clear(self, message, reactions):
+        await self.guilds_class[message.guild.id].on_reaction_clear(message, reactions)
 
 
 
